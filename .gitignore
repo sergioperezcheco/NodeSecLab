@@ -1,0 +1,51 @@
+# 依赖目录
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+.pnp
+.pnp.js
+
+# 环境变量和配置
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# 构建输出
+/dist
+/build
+/out
+
+# 缓存
+.cache/
+.npm
+.eslintcache
+
+# 日志
+logs
+*.log
+
+# 上传文件目录 (保留.gitkeep)
+public/uploads/*
+!public/uploads/.gitkeep
+
+# 覆盖率报告
+coverage/
+
+# IDE和编辑器
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+Thumbs.db
+
+# 调试文件
+.node_repl_history
+.nyc_output
+
+# 其他
+.tmp/
+.temp/

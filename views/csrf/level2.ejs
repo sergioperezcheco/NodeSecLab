@@ -1,0 +1,36 @@
+<%- include('../layout', { body: `
+<div class="challenge">
+  <div class="challenge-description">
+    <h3>CSRF - Level 2</h3>
+    <p>这个页面实现了CSRF防护。尝试创建一个恶意页面，看是否能绕过CSRF保护。</p>
+    <p>提示：这个页面使用了CSRF令牌进行保护，攻击者无法轻易获取有效的令牌。</p>
+  </div>
+  
+  <div class="challenge-info">
+    <h4>当前用户信息</h4>
+    <p><strong>用户名：</strong> ${user.username}</p>
+    <p><strong>邮箱：</strong> ${user.email}</p>
+    <p><strong>CSRF令牌：</strong> ${csrfToken}</p>
+  </div>
+  
+  <div class="challenge-form">
+    <h4>修改邮箱</h4>
+    <form method="POST" action="/csrf/level2/change-email">
+      <div class="form-group">
+        <label for="email">新邮箱地址：</label>
+        <input type="email" id="email" name="email" value="${user.email}" required>
+      </div>
+      <!-- CSRF令牌 -->
+      <input type="hidden" name="csrf_token" value="${csrfToken}">
+      <button type="submit" class="btn">更新邮箱</button>
+      <a href="/source/csrf/2" class="btn">查看源码</a>
+    </form>
+  </div>
+  
+  <div class="challenge-hint">
+    <h4>CSRF防护</h4>
+    <p>这个页面使用了CSRF令牌来防止CSRF攻击。每次加载页面时，服务器会生成一个新的随机令牌，并在表单提交时验证该令牌。</p>
+    <p>攻击者无法预测或获取有效的CSRF令牌，因此无法构造有效的恶意请求。</p>
+  </div>
+</div>
+` }) %> 

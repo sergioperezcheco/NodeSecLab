@@ -1,0 +1,46 @@
+<%- include('../layout', { body: `
+<div class="challenge">
+  <div class="challenge-description">
+    <h3>文件上传 - Level 2</h3>
+    <p>这个页面实现了基本的文件类型限制，只允许上传图片文件。尝试绕过这个限制。</p>
+    <p>提示：服务器只检查文件扩展名，但没有验证文件内容。</p>
+  </div>
+  
+  ${message ? `<div class="alert ${uploadedFile ? 'alert-success' : 'alert-danger'}">${message}</div>` : ''}
+  
+  <div class="challenge-form">
+    <form method="POST" action="/upload/level2" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="file">选择文件：</label>
+        <input type="file" id="file" name="file" required>
+        <small>只允许上传图片文件（JPG, JPEG, PNG, GIF）</small>
+      </div>
+      <button type="submit" class="btn">上传文件</button>
+      <a href="/source/upload/2" class="btn">查看源码</a>
+    </form>
+  </div>
+  
+  ${uploadedFile ? `
+    <div class="challenge-result">
+      <h4>上传成功</h4>
+      <div class="file-info">
+        <p><strong>文件名：</strong> ${uploadedFile.originalname}</p>
+        <p><strong>文件类型：</strong> ${uploadedFile.mimetype}</p>
+        <p><strong>文件大小：</strong> ${(uploadedFile.size / 1024).toFixed(2)} KB</p>
+        <p><strong>文件路径：</strong> <a href="${uploadedFile.path}" target="_blank">${uploadedFile.path}</a></p>
+      </div>
+    </div>
+  ` : ''}
+  
+  <div class="challenge-hint">
+    <h4>漏洞利用提示</h4>
+    <p>尝试以下方法绕过限制：</p>
+    <ol>
+      <li>创建一个包含恶意PHP代码的文件，但使用图片扩展名，例如 <code>shell.php.jpg</code></li>
+      <li>使用图片文件，但在其中嵌入PHP代码（图片马）</li>
+      <li>修改MIME类型</li>
+    </ol>
+    <p>注意：服务器只检查文件扩展名，没有验证文件内容或MIME类型。</p>
+  </div>
+</div>
+` }) %> 

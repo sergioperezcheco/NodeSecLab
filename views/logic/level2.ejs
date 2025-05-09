@@ -1,0 +1,65 @@
+<%- include('../layout', { body: `
+<div class="challenge">
+  <div class="challenge-description">
+    <h3>业务逻辑漏洞 - Level 2 (重放攻击)</h3>
+    <p>这个挑战演示了重放攻击漏洞。</p>
+    <p>系统没有正确验证交易ID，使攻击者可以重复提交相同的请求。</p>
+  </div>
+
+  <div class="challenge-form">
+    <form id="transferForm" method="POST" action="/logic/level2/transfer">
+      <div class="form-group">
+        <label>当前余额: <span id="currentBalance">${balance}</span></label>
+      </div>
+      <div class="form-group">
+        <label for="fromAccount">从账户:</label>
+        <input type="text" id="fromAccount" name="fromAccount" class="form-control" value="user1" readonly>
+      </div>
+      <div class="form-group">
+        <label for="toAccount">到账户:</label>
+        <input type="text" id="toAccount" name="toAccount" class="form-control" value="user2">
+      </div>
+      <div class="form-group">
+        <label for="amount">金额:</label>
+        <input type="number" id="amount" name="amount" class="form-control" value="100" min="1" max="${balance}">
+      </div>
+      <input type="hidden" id="transactionId" name="transactionId">
+      <button type="submit" class="btn btn-primary">转账</button>
+      <a href="/source/logic/2" class="btn">查看源码</a>
+    </form>
+  </div>
+
+  ${result ? `
+  <div class="challenge-result">
+    <h4>转账结果:</h4>
+    <pre>${result}</pre>
+  </div>
+  ` : ''}
+
+  <div class="challenge-hint">
+    <h4>提示:</h4>
+    <p>重放攻击是指攻击者捕获并重复发送有效的数据传输。</p>
+    <p>每次提交后检查转账是否真的发生了。</p>
+    <p>尝试使用相同的请求参数多次提交，观察余额变化。</p>
+    <p>如果只有交易ID是阻止重复提交的唯一因素，但系统未检查，则攻击者可以无限次重放交易。</p>
+  </div>
+</div>
+
+<script>
+  // 生成随机交易ID
+  function generateTransactionId() {
+    return 'txn_' + Math.random().toString(36).substr(2, 9);
+  }
+  
+  // 页面加载时设置随机交易ID
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('transactionId').value = generateTransactionId();
+  });
+  
+  // 提交前更新交易ID
+  document.getElementById('transferForm').addEventListener('submit', function() {
+    // 注释掉下面这行使得交易ID不会发生变化，从而重现重放攻击漏洞
+    // document.getElementById('transactionId').value = generateTransactionId();
+  });
+</script>
+` }) %> 

@@ -1,0 +1,33 @@
+<%- include('../layout', { body: `
+<div class="challenge">
+  <div class="challenge-description">
+    <h3>命令执行漏洞 - Level 1</h3>
+    <p>这个挑战演示了直接执行用户输入导致的命令执行漏洞。</p>
+    <p>尝试输入一个系统命令，如 <code>whoami</code>，看看会发生什么。</p>
+  </div>
+
+  <div class="challenge-form">
+    <form method="POST" action="/command/level1">
+      <div class="form-group">
+        <label for="command">输入命令:</label>
+        <input type="text" id="command" name="command" class="form-control" value="${command}">
+      </div>
+      <button type="submit" class="btn btn-primary">执行</button>
+      <a href="/source/command/1" class="btn">查看源码</a>
+    </form>
+  </div>
+
+  ${result ? `
+  <div class="challenge-result">
+    <h4>执行结果:</h4>
+    <pre>${result}</pre>
+  </div>
+  ` : ''}
+
+  <div class="challenge-hint">
+    <h4>提示:</h4>
+    <p>命令执行漏洞允许攻击者在目标系统上执行任意命令。</p>
+    <p>尝试注入管道符(|)、分号(;)或与号(&)来执行多个命令。</p>
+  </div>
+</div>
+` }) %> 

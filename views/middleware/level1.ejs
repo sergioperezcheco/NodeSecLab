@@ -1,0 +1,36 @@
+<%- include('../layout', { body: `
+<div class="challenge">
+  <div class="challenge-description">
+    <h3>中间件漏洞 - Level 1 (Express原型污染)</h3>
+    <p>这个挑战演示了原型污染漏洞。</p>
+    <p>尝试通过污染JavaScript对象原型来提升权限。</p>
+  </div>
+
+  <div class="challenge-form">
+    <form method="POST" action="/middleware/level1">
+      <div class="form-group">
+        <label for="input">JSON输入:</label>
+        <textarea id="input" name="input" class="form-control" rows="8">${input}</textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">提交</button>
+      <a href="/source/middleware/1" class="btn">查看源码</a>
+    </form>
+  </div>
+
+  ${result ? `
+  <div class="challenge-result">
+    <h4>处理结果:</h4>
+    <pre>${result}</pre>
+  </div>
+  ` : ''}
+
+  <div class="challenge-hint">
+    <h4>提示:</h4>
+    <p>原型污染是指攻击者能够添加或修改JavaScript对象的原型属性，从而影响所有对象实例。</p>
+    <p>尝试以下JSON输入:</p>
+    <pre>{"__proto__": {"isAdmin": true}}</pre>
+    <p>或者:</p>
+    <pre>{"constructor": {"prototype": {"isAdmin": true}}}</pre>
+  </div>
+</div>
+` }) %> 

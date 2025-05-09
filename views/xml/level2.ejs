@@ -1,0 +1,35 @@
+<%- include('../layout', { body: `
+<div class="challenge">
+  <div class="challenge-description">
+    <h3>XML注入漏洞 - Level 2</h3>
+    <p>这个挑战演示了XPath注入漏洞。</p>
+    <p>尝试注入XPath查询来检索敏感数据。</p>
+  </div>
+
+  <div class="challenge-form">
+    <form method="POST" action="/xml/level2">
+      <div class="form-group">
+        <label for="query">查询用户名:</label>
+        <input type="text" id="query" name="query" class="form-control" value="${query}">
+      </div>
+      <button type="submit" class="btn btn-primary">查询</button>
+      <a href="/source/xml/2" class="btn">查看源码</a>
+    </form>
+  </div>
+
+  ${result ? `
+  <div class="challenge-result">
+    <h4>查询结果:</h4>
+    <pre>${typeof result === 'object' ? JSON.stringify(result, null, 2) : result}</pre>
+  </div>
+  ` : ''}
+
+  <div class="challenge-hint">
+    <h4>提示:</h4>
+    <p>XPath注入类似于SQL注入，但作用于XML数据。</p>
+    <p>尝试使用XPath特殊字符和语法来绕过查询限制。</p>
+    <p>例如使用<code>' or '1'='1</code>可能会返回所有用户。</p>
+    <p>可以尝试<code>' or contains(password,'ad') or '</code>来逐字符猜测密码。</p>
+  </div>
+</div>
+` }) %> 

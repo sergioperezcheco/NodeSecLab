@@ -1,0 +1,36 @@
+<%- include('../layout', { body: `
+<div class="challenge">
+  <div class="challenge-description">
+    <h3>文件包含漏洞 - Level 1</h3>
+    <p>这个挑战演示了无任何限制的文件包含漏洞。</p>
+    <p>尝试使用<code>file</code>参数包含系统中的敏感文件。</p>
+  </div>
+
+  <div class="challenge-form">
+    <div class="form-group">
+      <label for="file">要包含的文件:</label>
+      <div class="input-group">
+        <input type="text" id="file" name="file" class="form-control" value="${file}">
+        <div class="input-group-append">
+          <a href="/include/level1/file?file=${file || 'default.txt'}" class="btn btn-primary">查看文件</a>
+          <a href="/source/include/1" class="btn">查看源码</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  ${content ? `
+  <div class="challenge-result">
+    <h4>文件内容:</h4>
+    <pre>${content}</pre>
+  </div>
+  ` : ''}
+
+  <div class="challenge-hint">
+    <h4>提示:</h4>
+    <p>文件包含漏洞允许攻击者访问系统中的敏感文件。</p>
+    <p>尝试包含系统文件，如配置文件(.env)或密码文件。</p>
+    <p>你可以使用相对路径(如<code>../../../file</code>)或绝对路径。</p>
+  </div>
+</div>
+` }) %> 

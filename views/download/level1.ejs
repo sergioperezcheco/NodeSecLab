@@ -1,0 +1,42 @@
+<%- include('../layout', { body: `
+<div class="challenge">
+  <div class="challenge-description">
+    <h3>文件下载 - Level 1</h3>
+    <p>这个页面存在任意文件下载漏洞。尝试下载服务器上的敏感文件。</p>
+    <p>提示：尝试使用 <code>../../../app.js</code> 或 <code>../../../.env</code> 作为文件名。</p>
+  </div>
+  
+  <div class="challenge-form">
+    <h4>可下载文件列表</h4>
+    <ul class="files-list">
+      ${files.map(file => `
+        <li>
+          <a href="/download/level1/download?file=${file}">${file}</a>
+        </li>
+      `).join('')}
+    </ul>
+    
+    <h4>自定义下载</h4>
+    <form action="/download/level1/download" method="GET">
+      <div class="form-group">
+        <label for="file">文件名：</label>
+        <input type="text" id="file" name="file" placeholder="输入要下载的文件名">
+      </div>
+      <button type="submit" class="btn">下载</button>
+      <a href="/source/download/1" class="btn">查看源码</a>
+    </form>
+  </div>
+  
+  <div class="challenge-hint">
+    <h4>漏洞利用提示</h4>
+    <p>这个页面存在目录遍历漏洞，可以通过相对路径访问服务器上的任意文件。</p>
+    <p>尝试以下路径：</p>
+    <ul>
+      <li><code>../../../app.js</code> - 应用程序主文件</li>
+      <li><code>../../../.env</code> - 环境配置文件（可能包含数据库密码）</li>
+      <li><code>../../../package.json</code> - 项目依赖文件</li>
+      <li><code>../../../controllers/download/level1.js</code> - 当前控制器源码</li>
+    </ul>
+  </div>
+</div>
+` }) %> 

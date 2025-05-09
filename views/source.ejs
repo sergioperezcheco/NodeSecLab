@@ -1,0 +1,9 @@
+<%- include('layout', { body: `
+<div class="source-code">
+  <div class="source-header">
+    <h3>${type.toUpperCase()} Level ${level} 源码</h3>
+    <a href="/${type}/level${level}" class="btn">返回关卡</a>
+  </div>
+  <pre><code>${sourceCode}</code></pre>
+</div>
+` }) %> 

@@ -1,0 +1,65 @@
+<%- include('../layout', { body: `
+<div class="challenge">
+  <div class="challenge-description">
+    <h3>XSS - Level 2 (存储型XSS)</h3>
+    <p>这个页面存在存储型XSS漏洞。尝试在留言板中注入JavaScript代码。</p>
+    <p>提示：尝试在消息中使用 <code>&lt;script&gt;alert('XSS')&lt;/script&gt;</code> 作为输入。</p>
+  </div>
+  
+  <div class="challenge-form">
+    <form method="POST" action="/xss/level2">
+      <div class="form-group">
+        <label for="name">你的名字：</label>
+        <input type="text" id="name" name="name" placeholder="输入你的名字" required>
+      </div>
+      <div class="form-group">
+        <label for="message">留言内容：</label>
+        <textarea id="message" name="message" placeholder="输入留言内容" required></textarea>
+      </div>
+      <button type="submit" class="btn">发表留言</button>
+      <a href="/source/xss/2" class="btn">查看源码</a>
+    </form>
+  </div>
+  
+  <div class="challenge-result">
+    <h4>留言板</h4>
+    <div id="messages-container">
+      <p>加载留言中...</p>
+    </div>
+  </div>
+  
+  <script>
+    // 获取并显示留言
+    fetch('/xss/level2/messages')
+      .then(response => response.json())
+      .then(messages => {
+        const container = document.getElementById('messages-container');
+        
+        if (messages.length === 0) {
+          container.innerHTML = '<p>暂无留言</p>';
+          return;
+        }
+        
+        let html = '<div class="messages-list">';
+        messages.forEach(msg => {
+          html += \`
+            <div class="message-item">
+              <div class="message-header">
+                <span class="message-author">\${msg.name}</span>
+                <span class="message-time">\${new Date(msg.time).toLocaleString()}</span>
+              </div>
+              <div class="message-content">\${msg.message}</div>
+            </div>
+          \`;
+        });
+        html += '</div>';
+        
+        container.innerHTML = html;
+      })
+      .catch(error => {
+        console.error('获取留言失败:', error);
+        document.getElementById('messages-container').innerHTML = '<p>获取留言失败</p>';
+      });
+  </script>
+</div>
+` }) %> 

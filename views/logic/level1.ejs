@@ -1,0 +1,58 @@
+<%- include('../layout', { body: `
+<div class="challenge">
+  <div class="challenge-description">
+    <h3>业务逻辑漏洞 - Level 1 (越权)</h3>
+    <p>这个挑战演示了水平越权和垂直越权漏洞。</p>
+    <p>尝试通过更改参数访问其他用户的信息或管理员功能。</p>
+  </div>
+
+  <div class="challenge-form">
+    <div class="form-group">
+      <label for="userId">用户ID:</label>
+      <input type="text" id="userId" class="form-control" value="${userId}">
+    </div>
+    <button type="button" id="getUserBtn" class="btn btn-primary">获取用户信息</button>
+    <button type="button" id="getAdminBtn" class="btn btn-danger">获取管理员信息</button>
+    <a href="/source/logic/1" class="btn">查看源码</a>
+  </div>
+
+  <div class="challenge-result mt-4">
+    <h4>结果:</h4>
+    <pre id="result"></pre>
+  </div>
+
+  <div class="challenge-hint">
+    <h4>提示:</h4>
+    <p>水平越权漏洞允许用户访问同级别用户的数据。</p>
+    <p>垂直越权漏洞允许用户访问更高权限的功能。</p>
+    <p>尝试更改用户ID参数获取其他用户信息。</p>
+    <p>尝试直接访问管理员功能。</p>
+  </div>
+</div>
+
+<script>
+  document.getElementById('getUserBtn').addEventListener('click', function() {
+    const userId = document.getElementById('userId').value;
+    
+    fetch('/logic/level1/user?id=' + userId)
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+      })
+      .catch(error => {
+        document.getElementById('result').textContent = 'Error: ' + error.message;
+      });
+  });
+  
+  document.getElementById('getAdminBtn').addEventListener('click', function() {
+    fetch('/logic/level1/admin')
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+      })
+      .catch(error => {
+        document.getElementById('result').textContent = 'Error: ' + error.message;
+      });
+  });
+</script>
+` }) %> 

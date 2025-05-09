@@ -1,0 +1,36 @@
+<%- include('../layout', { body: `
+<div class="challenge">
+  <div class="challenge-description">
+    <h3>文件包含漏洞 - Level 2</h3>
+    <p>这个挑战演示了有限过滤的文件包含漏洞。系统会检查并过滤特定的路径遍历尝试。</p>
+    <p>尝试绕过过滤包含敏感文件。</p>
+  </div>
+
+  <div class="challenge-form">
+    <div class="form-group">
+      <label for="file">要包含的文件:</label>
+      <div class="input-group">
+        <input type="text" id="file" name="file" class="form-control" value="${file}">
+        <div class="input-group-append">
+          <a href="/include/level2/file?file=${file || 'default.txt'}" class="btn btn-primary">查看文件</a>
+          <a href="/source/include/2" class="btn">查看源码</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  ${content ? `
+  <div class="challenge-result">
+    <h4>文件内容:</h4>
+    <pre>${content}</pre>
+  </div>
+  ` : ''}
+
+  <div class="challenge-hint">
+    <h4>提示:</h4>
+    <p>应用程序过滤了直接的路径遍历字符串("../"或"..\\")。</p>
+    <p>尝试使用URL编码如<code>%2e%2e%2f</code>代替"../"。</p>
+    <p>或者尝试使用双写、多层编码等技巧绕过过滤。</p>
+  </div>
+</div>
+` }) %> 

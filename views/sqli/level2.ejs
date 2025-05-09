@@ -1,0 +1,49 @@
+<%- include('../layout', { body: `
+<div class="challenge">
+  <div class="challenge-description">
+    <h3>SQL注入 - Level 2</h3>
+    <p>这个页面存在SQL注入漏洞。尝试通过修改用户名参数来获取所有用户的信息。</p>
+    <p>提示：尝试使用 <code>' OR '1'='1</code> 作为输入。</p>
+  </div>
+  
+  <div class="challenge-form">
+    <form method="POST" action="/sqli/level2">
+      <div class="form-group">
+        <label for="username">用户名：</label>
+        <input type="text" id="username" name="username" value="${username}" placeholder="输入用户名，例如：admin">
+      </div>
+      <button type="submit" class="btn">查询</button>
+      <a href="/source/sqli/2" class="btn">查看源码</a>
+    </form>
+  </div>
+  
+  <div class="challenge-result">
+    ${error ? `<div class="error-message">${error}</div>` : ''}
+    ${result ? `
+      <h4>查询结果：</h4>
+      <table class="result-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>用户名</th>
+            <th>密码</th>
+            <th>邮箱</th>
+            <th>创建时间</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${result.map(user => `
+            <tr>
+              <td>${user.id}</td>
+              <td>${user.username}</td>
+              <td>${user.password}</td>
+              <td>${user.email}</td>
+              <td>${new Date(user.created_at).toLocaleString()}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    ` : ''}
+  </div>
+</div>
+` }) %> 

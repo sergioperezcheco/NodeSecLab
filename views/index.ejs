@@ -1,0 +1,24 @@
+<%- include('layout', { body: `
+<div class="welcome">
+  <h2>欢迎来到Web安全靶场</h2>
+  <p>这是一个用于学习Web安全漏洞的实验环境，包含以下漏洞类型：</p>
+  <ul>
+    <li><strong>SQL注入（SQLi）</strong>：学习如何利用和防御SQL注入漏洞</li>
+    <li><strong>跨站脚本（XSS）</strong>：了解反射型、存储型和DOM型XSS漏洞</li>
+    <li><strong>跨站请求伪造（CSRF）</strong>：学习CSRF攻击原理和防御方法</li>
+    <li><strong>任意文件上传</strong>：了解文件上传漏洞的利用和防御</li>
+    <li><strong>任意文件下载</strong>：学习文件下载漏洞的危害和修复</li>
+  </ul>
+  
+  <h3>使用说明</h3>
+  <p>1. 从左侧菜单选择要学习的漏洞类型</p>
+  <p>2. 选择难度级别，从简单到复杂逐步学习</p>
+  <p>3. 每个关卡都有"查看源码"按钮，可以查看后端实现</p>
+  <p>4. 尝试利用漏洞，并思考如何修复</p>
+  
+  <div class="warning">
+    <h3>⚠️ 警告</h3>
+    <p>本靶场仅用于安全学习和教育目的，请勿将学到的技术用于非法用途！</p>
+  </div>
+</div>
+` }) %> 
