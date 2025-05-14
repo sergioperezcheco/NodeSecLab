@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: web-security-lab
+    restart: unless-stopped
+    ports:
+      - "5001:5001"
+    environment:
+      - PORT=5001
+      - DB_HOST=db
+      - DB_USER=securitylab
+      - DB_PASSWORD=securitylabpass
+      - DB_NAME=web
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+  db:
+    image: mysql:8
+    container_name: web-security-lab-db
+    restart: unless-stopped
+    environment:
+      - MYSQL_DATABASE=web
+      - MYSQL_USER=securitylab
+      - MYSQL_PASSWORD=securitylabpass
+      - MYSQL_ROOT_PASSWORD=rootpassword
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  db-data:
+    driver: local 

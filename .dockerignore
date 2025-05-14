@@ -1,0 +1,27 @@
+# 版本控制
+.git
+.gitignore
+
+# Node.js依赖
+node_modules
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# 环境变量
+.env
+.env.*
+!.env.example
+
+# 其他不需要的文件
+README.md
+Dockerfile
+docker-compose.yml
+.dockerignore
+需求.md
+新增需求.md
+
+# 临时文件
+*.log
+*.tmp
+.DS_Store 
