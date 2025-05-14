@@ -69,8 +69,8 @@
           <li class="<%= activeMenu === 'upload' ? 'active' : '' %>">
             <a href="#" class="dropdown-toggle">文件上传</a>
             <ul class="dropdown-menu <%= activeMenu === 'upload' ? 'show' : '' %>">
-              <li><a href="/upload/level1">Level 1</a></li>
-              <li><a href="/upload/level2">Level 2</a></li>
+              <li><a href="/upload/level1">Level 1 (无限制上传)</a></li>
+              <li><a href="/upload/level2">Level 2 (后缀名过滤)</a></li>
               <li><a href="/upload/level3">Level 3 (前端JS验证)</a></li>
               <li><a href="/upload/level4">Level 4 (大小写后缀)</a></li>
               <li><a href="/upload/level5">Level 5 (双写后缀)</a></li>
@@ -90,8 +90,11 @@
           <li class="<%= activeMenu === 'command' ? 'active' : '' %>">
             <a href="#" class="dropdown-toggle">命令执行</a>
             <ul class="dropdown-menu <%= activeMenu === 'command' ? 'show' : '' %>">
-              <li><a href="/command/level1">Level 1</a></li>
-              <li><a href="/command/level2">Level 2</a></li>
+              <li><a href="/command/level1">Level 1 (简单命令执行)</a></li>
+              <li><a href="/command/level2">Level 2 (命令执行绕过)</a></li>
+              <li><a href="/command/level3">Level 3 (JS代码执行)</a></li>
+              <li><a href="/command/level4">Level 4 (模板注入)</a></li>
+              <li><a href="/command/level5">Level 5 (反序列化)</a></li>
             </ul>
           </li>
           

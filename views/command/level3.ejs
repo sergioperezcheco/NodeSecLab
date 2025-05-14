@@ -1,0 +1,38 @@
+<%- include('../layout', { body: `
+<div class="challenge">
+  <div class="challenge-description">
+    <h3>命令执行漏洞 - Level 3</h3>
+    <p>这个挑战演示了JavaScript代码执行漏洞。</p>
+    <p>该应用允许用户执行JavaScript代码。尝试利用这个功能执行系统命令或访问敏感信息。</p>
+  </div>
+
+  <div class="challenge-form">
+    <form method="POST" action="/command/level3">
+      <div class="form-group">
+        <label for="code">输入JavaScript代码:</label>
+        <textarea id="code" name="code" class="form-control" rows="5">${code}</textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">执行</button>
+      <a href="/source/command/3" class="btn">查看源码</a>
+    </form>
+  </div>
+
+  ${result ? `
+  <div class="challenge-result">
+    <h4>执行结果:</h4>
+    <pre>${result}</pre>
+  </div>
+  ` : ''}
+
+  <div class="challenge-hint">
+    <h4>提示:</h4>
+    <p>JavaScript中的eval函数可以执行任意代码。</p>
+    <p>尝试使用Node.js内置模块，例如：</p>
+    <ul>
+      <li><code>process.env</code> - 获取环境变量</li>
+      <li><code>require('child_process').execSync('命令')</code> - 执行系统命令</li>
+      <li><code>require('fs').readFileSync('文件路径')</code> - 读取文件内容</li>
+    </ul>
+  </div>
+</div>
+` }) %> 

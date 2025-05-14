@@ -1,0 +1,35 @@
+<%- include('../layout', { body: `
+<div class="challenge">
+  <div class="challenge-description">
+    <h3>命令执行漏洞 - Level 5</h3>
+    <p>这个挑战演示了不安全的反序列化漏洞。</p>
+    <p>应用将用户输入的JSON数据反序列化，但没有进行任何验证。尝试利用这个漏洞执行系统命令。</p>
+  </div>
+
+  <div class="challenge-form">
+    <form method="POST" action="/command/level5">
+      <div class="form-group">
+        <label for="payload">输入序列化数据:</label>
+        <textarea id="payload" name="payload" class="form-control" rows="5">${payload}</textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">反序列化</button>
+      <a href="/source/command/5" class="btn">查看源码</a>
+    </form>
+  </div>
+
+  ${result ? `
+  <div class="challenge-result">
+    <h4>反序列化结果:</h4>
+    <pre>${result}</pre>
+  </div>
+  ` : ''}
+
+  <div class="challenge-hint">
+    <h4>提示:</h4>
+    <p>Node.js中的node-serialize库在反序列化时会将特定格式的字符串识别为函数并执行。</p>
+    <p>尝试构造以下Payload:</p>
+    <pre><code>{"rce":"_$$ND_FUNC$$_function(){return require('child_process').execSync('whoami').toString()}()"}</code></pre>
+    <p>上面的Payload包含一个立即执行函数(IIFE)，会在反序列化时自动执行。</p>
+  </div>
+</div>
+` }) %> 

@@ -30,7 +30,7 @@
   <div class="challenge-hint">
     <h4>安全实现说明</h4>
     <p>这个页面使用了 <code>path.basename()</code> 函数来提取文件名，防止目录遍历攻击。</p>
-    <p>例如，如果输入 <code>../../../app.js</code>，函数会返回 <code>app.js</code>，只在下载目录中查找该文件。</p>
+    <p>例如，如果输入 <code>../../app.js</code>，函数会返回 <code>app.js</code>，只在下载目录中查找该文件。</p>
     <p>这种实现方式可以有效防止目录遍历漏洞。</p>
   </div>
 </div>

@@ -3,7 +3,7 @@
   <div class="challenge-description">
     <h3>文件下载 - Level 1</h3>
     <p>这个页面存在任意文件下载漏洞。尝试下载服务器上的敏感文件。</p>
-    <p>提示：尝试使用 <code>../../../app.js</code> 或 <code>../../../.env</code> 作为文件名。</p>
+    <p>提示：尝试使用 <code>../../app.js</code> 或 <code>../../package.json</code> 作为文件名。</p>
   </div>
   
   <div class="challenge-form">
@@ -32,10 +32,10 @@
     <p>这个页面存在目录遍历漏洞，可以通过相对路径访问服务器上的任意文件。</p>
     <p>尝试以下路径：</p>
     <ul>
-      <li><code>../../../app.js</code> - 应用程序主文件</li>
-      <li><code>../../../.env</code> - 环境配置文件（可能包含数据库密码）</li>
-      <li><code>../../../package.json</code> - 项目依赖文件</li>
-      <li><code>../../../controllers/download/level1.js</code> - 当前控制器源码</li>
+      <li><code>../../app.js</code> - 应用程序主文件</li>
+      <!-- <li><code>../../../.env</code> - 环境配置文件（可能包含数据库密码）</li> -->
+      <li><code>../../package.json</code> - 项目依赖文件</li>
+      <li><code>../../controllers/download/level1.js</code> - 当前控制器源码</li>
     </ul>
   </div>
 </div>
