@@ -1,33 +1,58 @@
 <%- include('layout', { body: `
 <div class="welcome">
   <h2>欢迎来到Web安全靶场</h2>
-  <p>这是一个用于学习Web安全漏洞的实验环境，包含以下漏洞类型：</p>
-  <ul>
-    <li><strong>SQL注入（SQLi）</strong>：学习如何利用和防御各种SQL注入漏洞
-      <!-- <ul>
-        <li>联合查询注入 (Union-Based)</li>
-        <li>布尔盲注 (Boolean-Based Blind)</li>
-        <li>时间盲注 (Time-Based Blind)</li>
-        <li>二次注入 (Second-Order)</li>
-        <li>报错注入 (Error-Based)</li>
-      </ul> -->
+  <p class="intro-text" style="text-align: center; margin-bottom: 30px; max-width: 800px; margin-left: auto; margin-right: auto;">这是一个用于学习Web安全漏洞的实验环境，通过实际操作来理解各类安全漏洞的原理与防御方法。</p>
+  
+  <ul class="feature-list">
+    <li>
+      <strong>SQL注入（SQLi）</strong>
+      <p>学习如何利用和防御各种SQL注入漏洞</p>
     </li>
-    <li><strong>跨站脚本（XSS）</strong>：了解反射型、存储型和DOM型XSS漏洞</li>
-    <li><strong>跨站请求伪造（CSRF）</strong>：学习CSRF攻击原理和防御方法</li>
-    <li><strong>任意文件上传</strong>：了解文件上传漏洞的利用和防御</li>
-    <li><strong>任意文件下载</strong>：学习文件下载漏洞的危害和修复</li>
-    <li><strong>命令执行（command）</strong>：了解如何利用和防御命令注入漏洞</li>
-    <li><strong>文件包含（include）</strong>：学习本地和远程文件包含漏洞</li>
-    <li><strong>XML</strong>：了解XXE等XML相关漏洞的原理和防御</li>
-    <li><strong>业务逻辑漏洞</strong>：探索业务流程中的安全隐患</li>
-    <li><strong>中间件漏洞</strong>：学习常见中间件的安全问题和防护措施</li>
+    <li>
+      <strong>跨站脚本（XSS）</strong>
+      <p>了解反射型、存储型和DOM型XSS漏洞</p>
+    </li>
+    <li>
+      <strong>跨站请求伪造（CSRF）</strong>
+      <p>学习CSRF攻击原理和防御方法</p>
+    </li>
+    <li>
+      <strong>任意文件上传</strong>
+      <p>了解文件上传漏洞的利用和防御</p>
+    </li>
+    <li>
+      <strong>任意文件下载</strong>
+      <p>学习文件下载漏洞的危害和修复</p>
+    </li>
+    <li>
+      <strong>命令执行（command）</strong>
+      <p>了解如何利用和防御命令注入漏洞</p>
+    </li>
+    <li>
+      <strong>文件包含（include）</strong>
+      <p>学习本地和远程文件包含漏洞</p>
+    </li>
+    <li>
+      <strong>XML注入</strong>
+      <p>了解XXE等XML相关漏洞的原理和防御</p>
+    </li>
+    <li>
+      <strong>业务逻辑漏洞</strong>
+      <p>探索业务流程中的安全隐患</p>
+    </li>
+    <li>
+      <strong>中间件漏洞</strong>
+      <p>学习常见中间件的安全问题和防护措施</p>
+    </li>
   </ul>
   
   <h3>使用说明</h3>
-  <p>1. 从左侧菜单选择要学习的漏洞类型</p>
-  <p>2. 按照关卡顺序进行学习</p>
-  <p>3. 每个关卡都有"查看源码"按钮，可以查看后端实现</p>
-  <p>4. 尝试利用漏洞，并思考如何修复</p>
+  <div class="instruction-steps">
+    <p data-step="1">从左侧菜单选择要学习的漏洞类型</p>
+    <p data-step="2">按照关卡顺序进行学习</p>
+    <p data-step="3">每个关卡都有"查看源码"按钮，可以查看后端实现</p>
+    <p data-step="4">尝试利用漏洞，并思考如何修复</p>
+  </div>
   
   <div class="warning">
     <h3>⚠️ 警告</h3>

@@ -4,8 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= title %> - Web安全靶场</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap">
   <link rel="stylesheet" href="/css/style.css">
   <style>
+    body {
+      font-family: 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+    }
+    
     .clear-uploads-btn {
       margin-left: 15px;
       padding: 5px 10px;
@@ -17,6 +22,46 @@
     }
     .clear-uploads-btn:hover {
       background-color: #d32f2f;
+    }
+    
+    /* 添加一些动画效果 */
+    .logo h1 {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .logo h1:after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      transform: scaleX(0);
+      height: 2px;
+      bottom: -5px;
+      left: 0;
+      background-color: #3498db;
+      transform-origin: bottom right;
+      transition: transform 0.3s ease-out;
+    }
+    
+    .logo h1:hover:after {
+      transform: scaleX(1);
+      transform-origin: bottom left;
+    }
+    
+    /* 为首页内容添加淡入动画 */
+    .main {
+      animation: fadeInUp 0.6s ease-out;
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   </style>
 </head>
@@ -147,7 +192,7 @@
       </div>
       <div class="footer">
         <!-- <p>Web安全靶场 &copy; <%= new Date().getFullYear() %></p> -->
-        <p>Web安全靶场 &copy; checo</p>
+        <p>Web安全靶场 &copy; <a href="https://github.com/sergioperezcheco" target="_blank">Checo</a></p>
       </div>
     </div>
   </div>
