@@ -4,9 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= title %> - Web安全靶场</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/ai-chat.css">
   <style>
     body {
       font-family: 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
@@ -214,9 +217,35 @@
         <p>Web安全靶场 &copy; <a href="https://github.com/sergioperezcheco" target="_blank">Checo</a></p>
       </div>
     </div>
+
+    <!-- AI聊天窗口 -->
+    <div class="ai-chat-container">
+      <div class="ai-chat-toggle">
+        <i class="fas fa-comment-dots"></i>
+      </div>
+      <div class="ai-chat-header">
+        <h3>AI助手</h3>
+        <i class="fas fa-times ai-chat-close" style="cursor: pointer;"></i>
+      </div>
+      <div class="ai-chat-body">
+        <div class="ai-chat-messages">
+          <div class="ai-message bot">
+            您好！我是AI助手，有什么可以帮助您的吗？
+            <div class="ai-message-time">00:00</div>
+          </div>
+        </div>
+      </div>
+      <div class="ai-chat-footer">
+        <div class="ai-chat-input-container">
+          <textarea class="ai-chat-input" placeholder="输入您的问题..."></textarea>
+          <button class="ai-chat-send"><i class="fas fa-paper-plane"></i></button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script src="/js/main.js"></script>
+  <script src="/js/ai-chat.js"></script>
 
   <!-- 清理上传文件夹 -->
   <% if(activeMenu === 'upload') { %>
