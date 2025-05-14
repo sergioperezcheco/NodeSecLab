@@ -21,8 +21,13 @@
           <li class="<%= activeMenu === 'sqli' ? 'active' : '' %>">
             <a href="#" class="dropdown-toggle">SQL注入</a>
             <ul class="dropdown-menu <%= activeMenu === 'sqli' ? 'show' : '' %>">
-              <li><a href="/sqli/level1">Level 1</a></li>
-              <li><a href="/sqli/level2">Level 2</a></li>
+              <li><a href="/sqli/level1">Level 1 (基础注入)</a></li>
+              <li><a href="/sqli/level2">Level 2 (字符过滤)</a></li>
+              <li><a href="/sqli/level3">Level 3 (联合查询注入)</a></li>
+              <li><a href="/sqli/level4">Level 4 (布尔盲注)</a></li>
+              <li><a href="/sqli/level5">Level 5 (时间盲注)</a></li>
+              <li><a href="/sqli/level6">Level 6 (二次注入)</a></li>
+              <li><a href="/sqli/level7">Level 7 (报错注入)</a></li>
             </ul>
           </li>
           

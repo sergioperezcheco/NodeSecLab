@@ -1,0 +1,45 @@
+<%- include('../layout', { body: `
+<div class="challenge">
+  <div class="challenge-description">
+    <h3>SQL注入 - Level 3 (联合查询注入)</h3>
+    <p>这个页面存在联合查询(UNION)SQL注入漏洞。尝试使用UNION查询语句获取用户表中的敏感信息。</p>
+    <p>提示：文章按作者名称查询，你需要猜测查询的列数和类型，然后使用UNION构造注入。</p>
+  </div>
+  
+  <div class="challenge-form">
+    <form method="POST" action="/sqli/level3">
+      <div class="form-group">
+        <label for="author">作者名称：</label>
+        <input type="text" id="author" name="author" value="${query}" placeholder="输入作者名称，例如：admin">
+      </div>
+      <button type="submit" class="btn">查询</button>
+      <a href="/source/sqli/3" class="btn">查看源码</a>
+    </form>
+  </div>
+  
+  <div class="challenge-result">
+    ${error ? `<div class="error-message">${error}</div>` : ''}
+    ${result ? `
+      <h4>查询结果：</h4>
+      <table class="result-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>标题</th>
+            <th>作者</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${result.map(article => `
+            <tr>
+              <td>${article.id}</td>
+              <td>${article.title}</td>
+              <td>${article.author}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    ` : ''}
+  </div>
+</div>
+` }) %> 

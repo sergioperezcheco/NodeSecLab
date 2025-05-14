@@ -1,0 +1,25 @@
+<%- include('../layout', { body: `
+<div class="challenge">
+  <div class="challenge-description">
+    <h3>SQL注入 - Level 5 (时间盲注)</h3>
+    <p>这个页面存在时间盲注漏洞。尝试利用MySQL的延时函数(SLEEP, BENCHMARK)，通过观察响应时间的差异来获取数据库中的敏感信息。</p>
+    <p>提示：可以使用IF和SLEEP函数组合构造条件判断，例如: IF(条件为真, SLEEP(3), 0)</p>
+  </div>
+  
+  <div class="challenge-form">
+    <form method="POST" action="/sqli/level5">
+      <div class="form-group">
+        <label for="id">用户ID：</label>
+        <input type="text" id="id" name="id" value="${query}" placeholder="输入用户ID，例如：1">
+      </div>
+      <button type="submit" class="btn">查询</button>
+      <a href="/source/sqli/5" class="btn">查看源码</a>
+    </form>
+  </div>
+  
+  <div class="challenge-result">
+    ${error ? `<div class="error-message">${error}</div>` : ''}
+    ${result ? `<div class="result-message">${result}</div>` : ''}
+  </div>
+</div>
+` }) %> 

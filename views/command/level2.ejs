@@ -1,37 +1,36 @@
 <% 
 let backTick = '`';
 %>
-<%- include('../layout', { 
-  title: '命令执行 - Level 2',
-  activeMenu: 'command',
-  body: '<div class="challenge">\n' +
-  '  <div class="challenge-description">\n' +
-  '    <h3>命令执行漏洞 - Level 2</h3>\n' +
-  '    <p>这个挑战演示了命令执行漏洞的过滤与绕过。</p>\n' +
-  '    <p>服务器尝试过滤危险字符，但是过滤不完全。尝试绕过过滤机制执行系统命令。</p>\n' +
-  '  </div>\n' +
-  '\n' +
-  '  <div class="challenge-form">\n' +
-  '    <form method="POST" action="/command/level2">\n' +
-  '      <div class="form-group">\n' +
-  '        <label for="command">输入命令:</label>\n' +
-  '        <input type="text" id="command" name="command" class="form-control" value="' + command + '">\n' +
-  '      </div>\n' +
-  '      <button type="submit" class="btn btn-primary">执行</button>\n' +
-  '      <a href="/source/command/2" class="btn">查看源码</a>\n' +
-  '    </form>\n' +
-  '  </div>\n' +
-  '\n' +
-  (result ? 
-  '  <div class="challenge-result">\n' +
-  '    <h4>执行结果:</h4>\n' +
-  '    <pre>' + result + '</pre>\n' +
-  '  </div>\n' : '') +
-  '\n' +
-  '  <div class="challenge-hint">\n' +
-  '    <h4>提示:</h4>\n' +
-  '    <p>服务器过滤了一些常见的命令注入字符，如管道符(|)、分号(;)和与号(&)。</p>\n' +
-  '    <p>尝试使用其他技巧绕过过滤，如反引号(' + backTick + ')、美元符号($())等。</p>\n' +
-  '  </div>\n' +
-  '</div>'
-}) %> 
+<%- include('../layout', { body: `
+<div class="challenge">
+  <div class="challenge-description">
+    <h3>命令执行漏洞 - Level 2</h3>
+    <p>这个挑战演示了命令执行漏洞的过滤与绕过。</p>
+    <p>服务器尝试过滤危险字符，但是过滤不完全。尝试绕过过滤机制执行系统命令。</p>
+  </div>
+
+  <div class="challenge-form">
+    <form method="POST" action="/command/level2">
+      <div class="form-group">
+        <label for="command">输入命令:</label>
+        <input type="text" id="command" name="command" class="form-control" value="${command}">
+      </div>
+      <button type="submit" class="btn btn-primary">执行</button>
+      <a href="/source/command/2" class="btn">查看源码</a>
+    </form>
+  </div>
+
+  ${result ? `
+  <div class="challenge-result">
+    <h4>执行结果:</h4>
+    <pre>${result}</pre>
+  </div>
+  ` : ''}
+
+  <div class="challenge-hint">
+    <h4>提示:</h4>
+    <p>服务器过滤了一些常见的命令注入字符，如管道符(|)、分号(;)和与号(&)。</p>
+    <p>尝试使用其他技巧绕过过滤，如反引号(${backTick})、美元符号($())等。</p>
+  </div>
+</div>
+` }) %> 

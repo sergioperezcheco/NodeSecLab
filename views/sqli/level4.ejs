@@ -1,0 +1,29 @@
+<%- include('../layout', { body: `
+<div class="challenge">
+  <div class="challenge-description">
+    <h3>SQL注入 - Level 4 (布尔盲注)</h3>
+    <p>这个页面存在布尔盲注漏洞。尝试利用页面返回的成功/失败信息，逐位猜解数据库中的敏感信息。</p>
+    <p>提示：你可以使用条件语句（AND/OR）和字符串处理函数（如SUBSTRING, ASCII）来逐字符猜解数据。</p>
+  </div>
+  
+  <div class="challenge-form">
+    <form method="POST" action="/sqli/level4">
+      <div class="form-group">
+        <label for="id">文章ID：</label>
+        <input type="text" id="id" name="id" value="${query}" placeholder="输入文章ID，例如：1">
+      </div>
+      <button type="submit" class="btn">查询</button>
+      <a href="/source/sqli/4" class="btn">查看源码</a>
+    </form>
+  </div>
+  
+  <div class="challenge-result">
+    ${error ? `<div class="error-message">${error}</div>` : ''}
+    ${typeof success !== 'undefined' ? `
+      <div class="result-message ${success ? 'success' : 'failure'}">
+        查询 ${success ? '成功' : '失败'}
+      </div>
+    ` : ''}
+  </div>
+</div>
+` }) %> 

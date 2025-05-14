@@ -1,0 +1,54 @@
+<%- include('../layout', { body: `
+<div class="challenge">
+  <div class="challenge-description">
+    <h3>SQL注入 - Level 7 (报错注入)</h3>
+    <p>这个页面存在报错注入漏洞。尝试利用数据库的错误消息来获取敏感信息，如数据库名称、表名和数据。</p>
+    <p>提示：可以使用MySQL的extractvalue()或updatexml()函数触发包含查询结果的错误。</p>
+  </div>
+  
+  <div class="challenge-form">
+    <form method="POST" action="/sqli/level7">
+      <div class="form-group">
+        <label for="product">产品搜索：</label>
+        <input type="text" id="product" name="product" value="<%= query %>" placeholder="输入产品关键词">
+      </div>
+      <button type="submit" class="btn">搜索</button>
+      <a href="/source/sqli/7" class="btn">查看源码</a>
+    </form>
+  </div>
+  
+  <div class="challenge-result">
+    <% if (typeof error !== 'undefined' && error) { %>
+      <div class="error-message"><%= error %></div>
+    <% } %>
+    
+    <% if (typeof result !== 'undefined' && result && result.length > 0) { %>
+      <h4>搜索结果：</h4>
+      <table class="result-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>标题</th>
+            <th>作者</th>
+            <th>内容</th>
+            <th>创建时间</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% result.forEach(article => { %>
+            <tr>
+              <td><%= article.id %></td>
+              <td><%= article.title %></td>
+              <td><%= article.author %></td>
+              <td><%= article.content %></td>
+              <td><%= new Date(article.created_at).toLocaleString() %></td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    <% } else if (typeof result !== 'undefined' && result) { %>
+      <p>未找到匹配的产品。</p>
+    <% } %>
+  </div>
+</div>
+` }) %>

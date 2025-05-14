@@ -1,0 +1,38 @@
+<%- include('../layout', { body: `
+<div class="challenge">
+  <div class="challenge-description">
+    <h3>SQL注入 - Level 6 (二次注入)</h3>
+    <p>你现在可以修改个人资料，尝试利用二次注入漏洞修改管理员的邮箱地址。</p>
+    <p>提示：注册时使用的用户名可能在更新个人资料时被不安全地使用。</p>
+  </div>
+  
+  <div class="profile-container">
+    <h4>个人资料</h4>
+    <div class="profile-info">
+      <p><strong>ID:</strong> <%= user.id %></p>
+      <p><strong>用户名:</strong> <%= user.username %></p>
+      <p><strong>邮箱:</strong> <%= user.email %></p>
+    </div>
+    
+    <form method="POST" action="/sqli/level6/update">
+      <input type="hidden" name="id" value="<%= user.id %>">
+      <input type="hidden" name="username" value="<%= user.username %>">
+      <div class="form-group">
+        <label for="newEmail">新邮箱地址：</label>
+        <input type="email" id="newEmail" name="newEmail" placeholder="输入新的邮箱地址">
+      </div>
+      <button type="submit" class="btn">更新资料</button>
+      <a href="/source/sqli/6" class="btn">查看源码</a>
+    </form>
+  </div>
+  
+  <div class="challenge-result">
+    <% if (typeof error !== 'undefined' && error) { %>
+      <div class="error-message"><%= error %></div>
+    <% } %>
+    <% if (typeof message !== 'undefined' && message) { %>
+      <div class="success-message"><%= message %></div>
+    <% } %>
+  </div>
+</div>
+` }) %>
