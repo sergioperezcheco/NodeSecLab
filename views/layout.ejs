@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= title %> - Web安全靶场</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="/css/style.css">
   <style>
     body {
@@ -63,22 +64,40 @@
         transform: translateY(0);
       }
     }
+    
+    /* 图标 */
+    .icon-database:before { content: '\f1c0'; font-family: 'Font Awesome 6 Free'; font-weight: 900; margin-right: 8px; color: #3498db; }
+    .icon-code:before { content: '\f121'; font-family: 'Font Awesome 6 Free'; font-weight: 900; margin-right: 8px; color: #e74c3c; }
+    .icon-link:before { content: '\f0c1'; font-family: 'Font Awesome 6 Free'; font-weight: 900; margin-right: 8px; color: #f39c12; }
+    .icon-upload:before { content: '\f093'; font-family: 'Font Awesome 6 Free'; font-weight: 900; margin-right: 8px; color: #27ae60; }
+    .icon-download:before { content: '\f019'; font-family: 'Font Awesome 6 Free'; font-weight: 900; margin-right: 8px; color: #8e44ad; }
+    .icon-terminal:before { content: '\f120'; font-family: 'Font Awesome 6 Free'; font-weight: 900; margin-right: 8px; color: #2c3e50; }
+    .icon-file-code:before { content: '\f1c9'; font-family: 'Font Awesome 6 Free'; font-weight: 900; margin-right: 8px; color: #16a085; }
+    .icon-xml:before { content: '\f1c9'; font-family: 'Font Awesome 6 Free'; font-weight: 900; margin-right: 8px; color: #d35400; }
+    .icon-sitemap:before { content: '\f0e8'; font-family: 'Font Awesome 6 Free'; font-weight: 900; margin-right: 8px; color: #2980b9; }
+    .icon-server:before { content: '\f233'; font-family: 'Font Awesome 6 Free'; font-weight: 900; margin-right: 8px; color: #c0392b; }
+    
+    /* 优化首页特效 */
+    .feature-cards-container {
+      perspective: 1000px;
+      margin: 30px 0;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="sidebar">
       <div class="logo">
-        <h1>Web安全靶场</h1>
+        <h1><i class="fas fa-shield-alt"></i> Web安全靶场</h1>
       </div>
       <nav class="menu">
         <ul>
           <li class="<%= activeMenu === 'home' ? 'active' : '' %>">
-            <a href="/">首页</a>
+            <a href="/"><i class="fas fa-home"></i> 首页</a>
           </li>
           
           <li class="<%= activeMenu === 'sqli' ? 'active' : '' %>">
-            <a href="#" class="dropdown-toggle">SQL注入</a>
+            <a href="#" class="dropdown-toggle"><i class="fas fa-database"></i> SQL注入</a>
             <ul class="dropdown-menu <%= activeMenu === 'sqli' ? 'show' : '' %>">
               <li><a href="/sqli/level1">Level 1 (基础注入)</a></li>
               <li><a href="/sqli/level2">Level 2 (字符过滤)</a></li>
@@ -91,7 +110,7 @@
           </li>
           
           <li class="<%= activeMenu === 'xss' ? 'active' : '' %>">
-            <a href="#" class="dropdown-toggle">XSS</a>
+            <a href="#" class="dropdown-toggle"><i class="fas fa-code"></i> XSS</a>
             <ul class="dropdown-menu <%= activeMenu === 'xss' ? 'show' : '' %>">
               <li><a href="/xss/level1">Level 1 (反射型XSS)</a></li>
               <li><a href="/xss/level2">Level 2 (存储型XSS)</a></li>
@@ -103,7 +122,7 @@
           </li>
           
           <li class="<%= activeMenu === 'csrf' ? 'active' : '' %>">
-            <a href="#" class="dropdown-toggle">CSRF</a>
+            <a href="#" class="dropdown-toggle"><i class="fas fa-link"></i> CSRF</a>
             <ul class="dropdown-menu <%= activeMenu === 'csrf' ? 'show' : '' %>">
               <li><a href="/csrf/level1">Level 1 (POST型)</a></li>
               <li><a href="/csrf/level2">Level 2 (Token型)</a></li>
@@ -112,7 +131,7 @@
           </li>
           
           <li class="<%= activeMenu === 'upload' ? 'active' : '' %>">
-            <a href="#" class="dropdown-toggle">文件上传</a>
+            <a href="#" class="dropdown-toggle"><i class="fas fa-upload"></i> 文件上传</a>
             <ul class="dropdown-menu <%= activeMenu === 'upload' ? 'show' : '' %>">
               <li><a href="/upload/level1">Level 1 (无限制上传)</a></li>
               <li><a href="/upload/level2">Level 2 (后缀名过滤)</a></li>
@@ -124,7 +143,7 @@
           </li>
           
           <li class="<%= activeMenu === 'download' ? 'active' : '' %>">
-            <a href="#" class="dropdown-toggle">文件下载</a>
+            <a href="#" class="dropdown-toggle"><i class="fas fa-download"></i> 文件下载</a>
             <ul class="dropdown-menu <%= activeMenu === 'download' ? 'show' : '' %>">
               <li><a href="/download/level1">Level 1</a></li>
               <li><a href="/download/level2">Level 2</a></li>
@@ -133,7 +152,7 @@
 
           <!-- 新增漏洞类型菜单 -->
           <li class="<%= activeMenu === 'command' ? 'active' : '' %>">
-            <a href="#" class="dropdown-toggle">命令执行</a>
+            <a href="#" class="dropdown-toggle"><i class="fas fa-terminal"></i> 命令执行</a>
             <ul class="dropdown-menu <%= activeMenu === 'command' ? 'show' : '' %>">
               <li><a href="/command/level1">Level 1 (简单命令执行)</a></li>
               <li><a href="/command/level2">Level 2 (命令执行绕过)</a></li>
@@ -144,7 +163,7 @@
           </li>
           
           <li class="<%= activeMenu === 'include' ? 'active' : '' %>">
-            <a href="#" class="dropdown-toggle">文件包含</a>
+            <a href="#" class="dropdown-toggle"><i class="fas fa-file-code"></i> 文件包含</a>
             <ul class="dropdown-menu <%= activeMenu === 'include' ? 'show' : '' %>">
               <li><a href="/include/level1">Level 1</a></li>
               <li><a href="/include/level2">Level 2</a></li>
@@ -152,7 +171,7 @@
           </li>
           
           <li class="<%= activeMenu === 'xml' ? 'active' : '' %>">
-            <a href="#" class="dropdown-toggle">XML注入</a>
+            <a href="#" class="dropdown-toggle"><i class="fas fa-file-code"></i> XML注入</a>
             <ul class="dropdown-menu <%= activeMenu === 'xml' ? 'show' : '' %>">
               <li><a href="/xml/level1">Level 1</a></li>
               <li><a href="/xml/level2">Level 2</a></li>
@@ -160,7 +179,7 @@
           </li>
           
           <li class="<%= activeMenu === 'logic' ? 'active' : '' %>">
-            <a href="#" class="dropdown-toggle">业务逻辑漏洞</a>
+            <a href="#" class="dropdown-toggle"><i class="fas fa-sitemap"></i> 业务逻辑漏洞</a>
             <ul class="dropdown-menu <%= activeMenu === 'logic' ? 'show' : '' %>">
               <li><a href="/logic/level1">Level 1 (越权)</a></li>
               <li><a href="/logic/level2">Level 2 (重放)</a></li>
@@ -168,7 +187,7 @@
           </li>
           
           <li class="<%= activeMenu === 'middleware' ? 'active' : '' %>">
-            <a href="#" class="dropdown-toggle">中间件漏洞</a>
+            <a href="#" class="dropdown-toggle"><i class="fas fa-server"></i> 中间件漏洞</a>
             <ul class="dropdown-menu <%= activeMenu === 'middleware' ? 'show' : '' %>">
               <li><a href="/middleware/level1">Level 1</a></li>
               <li><a href="/middleware/level2">Level 2</a></li>
@@ -183,7 +202,7 @@
         <div class="header-content">
           <h2><%= title %></h2>
           <% if(activeMenu === 'upload') { %>
-            <button id="clearUploadsBtn" class="clear-uploads-btn">清空上传文件夹</button>
+            <button id="clearUploadsBtn" class="clear-uploads-btn"><i class="fas fa-trash-alt"></i> 清空上传文件夹</button>
           <% } %>
         </div>
       </div>

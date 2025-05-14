@@ -1,50 +1,52 @@
 <%- include('layout', { body: `
 <div class="welcome">
   <h2>欢迎来到Web安全靶场</h2>
-  <p class="intro-text" style="text-align: center; margin-bottom: 30px; max-width: 800px; margin-left: auto; margin-right: auto;">这是一个用于学习Web安全漏洞的实验环境，通过实际操作来理解各类安全漏洞的原理与防御方法。</p>
+  <p class="intro-text">这是一个用于学习Web安全漏洞的实验环境，通过实际操作来理解各类安全漏洞的原理与防御方法。</p>
   
-  <ul class="feature-list">
-    <li>
-      <strong>SQL注入（SQLi）</strong>
-      <p>学习如何利用和防御各种SQL注入漏洞</p>
-    </li>
-    <li>
-      <strong>跨站脚本（XSS）</strong>
-      <p>了解反射型、存储型和DOM型XSS漏洞</p>
-    </li>
-    <li>
-      <strong>跨站请求伪造（CSRF）</strong>
-      <p>学习CSRF攻击原理和防御方法</p>
-    </li>
-    <li>
-      <strong>任意文件上传</strong>
-      <p>了解文件上传漏洞的利用和防御</p>
-    </li>
-    <li>
-      <strong>任意文件下载</strong>
-      <p>学习文件下载漏洞的危害和修复</p>
-    </li>
-    <li>
-      <strong>命令执行（command）</strong>
-      <p>了解如何利用和防御命令注入漏洞</p>
-    </li>
-    <li>
-      <strong>文件包含（include）</strong>
-      <p>学习本地和远程文件包含漏洞</p>
-    </li>
-    <li>
-      <strong>XML注入</strong>
-      <p>了解XXE等XML相关漏洞的原理和防御</p>
-    </li>
-    <li>
-      <strong>业务逻辑漏洞</strong>
-      <p>探索业务流程中的安全隐患</p>
-    </li>
-    <li>
-      <strong>中间件漏洞</strong>
-      <p>学习常见中间件的安全问题和防护措施</p>
-    </li>
-  </ul>
+  <div class="feature-cards-container">
+    <ul class="feature-list">
+      <li>
+        <strong><i class="icon-database"></i> SQL注入（SQLi）</strong>
+        <p>学习如何利用和防御各种SQL注入漏洞</p>
+      </li>
+      <li>
+        <strong><i class="icon-code"></i> 跨站脚本（XSS）</strong>
+        <p>了解反射型、存储型和DOM型XSS漏洞</p>
+      </li>
+      <li>
+        <strong><i class="icon-link"></i> 跨站请求伪造（CSRF）</strong>
+        <p>学习CSRF攻击原理和防御方法</p>
+      </li>
+      <li>
+        <strong><i class="icon-upload"></i> 任意文件上传</strong>
+        <p>了解文件上传漏洞的利用和防御</p>
+      </li>
+      <li>
+        <strong><i class="icon-download"></i> 任意文件下载</strong>
+        <p>学习文件下载漏洞的危害和修复</p>
+      </li>
+      <li>
+        <strong><i class="icon-terminal"></i> 命令执行（command）</strong>
+        <p>了解如何利用和防御命令注入漏洞</p>
+      </li>
+      <li>
+        <strong><i class="icon-file-code"></i> 文件包含（include）</strong>
+        <p>学习本地和远程文件包含漏洞</p>
+      </li>
+      <li>
+        <strong><i class="icon-xml"></i> XML注入</strong>
+        <p>了解XXE等XML相关漏洞的原理和防御</p>
+      </li>
+      <li>
+        <strong><i class="icon-sitemap"></i> 业务逻辑漏洞</strong>
+        <p>探索业务流程中的安全隐患</p>
+      </li>
+      <li>
+        <strong><i class="icon-server"></i> 中间件漏洞</strong>
+        <p>学习常见中间件的安全问题和防护措施</p>
+      </li>
+    </ul>
+  </div>
   
   <h3>使用说明</h3>
   <div class="instruction-steps">
