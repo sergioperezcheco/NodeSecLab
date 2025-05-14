@@ -47,4 +47,24 @@ router.post('/level5', upload.single('file'), level5Controller.uploadFile);
 router.get('/level6', level6Controller.renderPage);
 router.post('/level6', upload.single('file'), level6Controller.uploadFile);
 
+// 清空上传文件夹的路由
+router.post('/clear-uploads', (req, res) => {
+  const uploadsDir = path.join(__dirname, '../public/uploads');
+  
+  try {
+    // 读取uploads目录下的所有文件
+    const files = fs.readdirSync(uploadsDir);
+    
+    // 删除每个文件
+    for (const file of files) {
+      fs.unlinkSync(path.join(uploadsDir, file));
+    }
+    
+    res.json({ success: true, message: '上传文件夹已清空' });
+  } catch (error) {
+    console.error('清空文件夹错误:', error);
+    res.status(500).json({ success: false, message: '清空文件夹时出错' });
+  }
+});
+
 module.exports = router; 
