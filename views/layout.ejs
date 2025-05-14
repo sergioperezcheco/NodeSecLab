@@ -29,8 +29,12 @@
           <li class="<%= activeMenu === 'xss' ? 'active' : '' %>">
             <a href="#" class="dropdown-toggle">XSS</a>
             <ul class="dropdown-menu <%= activeMenu === 'xss' ? 'show' : '' %>">
-              <li><a href="/xss/level1">Level 1</a></li>
-              <li><a href="/xss/level2">Level 2</a></li>
+              <li><a href="/xss/level1">Level 1 (反射型XSS)</a></li>
+              <li><a href="/xss/level2">Level 2 (存储型XSS)</a></li>
+              <li><a href="/xss/level3">Level 3 (URL参数XSS)</a></li>
+              <li><a href="/xss/level4">Level 4 (输入框属性XSS)</a></li>
+              <li><a href="/xss/level5">Level 5 (过滤绕过XSS)</a></li>
+              <li><a href="/xss/level6">Level 6 (Style标签XSS)</a></li>
             </ul>
           </li>
           

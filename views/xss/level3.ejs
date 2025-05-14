@@ -1,0 +1,16 @@
+<%- include('../layout', { body: `
+<div class="challenge">
+  <div class="challenge-description">
+    <h3>XSS - Level 3 (URL参数XSS)</h3>
+    <p>这个页面存在反射型XSS漏洞，但没有提供输入框。</p>
+    <p>提示：尝试在URL中添加<code>?name=&lt;script&gt;alert(1)&lt;/script&gt;</code>参数。</p>
+  </div>
+  
+  <div class="challenge-result">
+    <div class="message">
+      ${name ? '当前用户: ' + name : '未指定用户名'}
+    </div>
+    <a href="/source/xss/3" class="btn">查看源码</a>
+  </div>
+</div>
+` }) %> 

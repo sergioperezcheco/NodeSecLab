@@ -1,0 +1,30 @@
+<%- include('../layout', { body: `
+<div class="challenge">
+  <div class="challenge-description">
+    <h3>XSS - Level 4 (输入框属性XSS)</h3>
+    <p>这个页面存在反射型XSS漏洞，漏洞点在输入框的value属性中。</p>
+    <p>提示：尝试闭合value属性并注入XSS代码。</p>
+    <code>function render(input) {<br>&nbsp;&nbsp;return '&lt;input type="text" value="' + input + '"&gt;';<br>}</code>
+  </div>
+  
+  <div class="challenge-form">
+    <form method="POST" action="/xss/level4">
+      <div class="form-group">
+        <label for="name">你的名字：</label>
+        <input type="text" id="name" name="name" placeholder="输入你的名字">
+      </div>
+      <button type="submit" class="btn">提交</button>
+      <a href="/source/xss/4" class="btn">查看源码</a>
+    </form>
+  </div>
+  
+  ${name ? `
+    <div class="challenge-result">
+      <h4>预览输入框：</h4>
+      <div class="preview-box">
+        ${renderedInput}
+      </div>
+    </div>
+  ` : ''}
+</div>
+` }) %> 

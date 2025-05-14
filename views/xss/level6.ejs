@@ -1,0 +1,31 @@
+<%- include('../layout', { body: `
+<div class="challenge">
+  <div class="challenge-description">
+    <h3>XSS - Level 6 (Style标签XSS)</h3>
+    <p>这个页面尝试过滤style标签结束符，但过滤不完全。</p>
+    <p>提示：尝试使用HTML空格符来绕过过滤。</p>
+    <code>function render(src) {<br>&nbsp;&nbsp;src = src.replace(/&lt;\/style&gt;/ig, '/* \u574F\u4EBA */')<br>&nbsp;&nbsp;return \`<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;style&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\${src}<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/style&gt;<br>&nbsp;&nbsp;\`<br>}</code>
+  </div>
+  
+  <div class="challenge-form">
+    <form method="POST" action="/xss/level6">
+      <div class="form-group">
+        <label for="style">CSS样式：</label>
+        <textarea id="style" name="style" placeholder="输入CSS样式" rows="4"></textarea>
+      </div>
+      <button type="submit" class="btn">应用样式</button>
+      <a href="/source/xss/6" class="btn">查看源码</a>
+    </form>
+  </div>
+  
+  ${style ? `
+    <div class="challenge-result">
+      <h4>应用的样式：</h4>
+      <div class="styled-content">
+        ${styledContent}
+        <div class="sample-text">这是一段样例文本</div>
+      </div>
+    </div>
+  ` : ''}
+</div>
+` }) %> 

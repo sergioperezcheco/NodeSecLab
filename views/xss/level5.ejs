@@ -1,0 +1,30 @@
+<%- include('../layout', { body: `
+<div class="challenge">
+  <div class="challenge-description">
+    <h3>XSS - Level 5 (过滤绕过XSS)</h3>
+    <p>这个页面尝试通过过滤圆括号来防止XSS，但过滤不完全。</p>
+    <p>提示：JavaScript中还有其他方式可以调用函数，如使用反引号代替圆括号。</p>
+    <code>function render(input) {<br>&nbsp;&nbsp;const stripBracketsRe = /[()]/g<br>&nbsp;&nbsp;input = input.replace(stripBracketsRe, '')<br>&nbsp;&nbsp;return input<br>}</code>
+  </div>
+  
+  <div class="challenge-form">
+    <form method="POST" action="/xss/level5">
+      <div class="form-group">
+        <label for="name">输入内容：</label>
+        <input type="text" id="name" name="name" placeholder="输入内容">
+      </div>
+      <button type="submit" class="btn">提交</button>
+      <a href="/source/xss/5" class="btn">查看源码</a>
+    </form>
+  </div>
+  
+  ${name ? `
+    <div class="challenge-result">
+      <h4>处理后的输出：</h4>
+      <div class="output-box">
+        ${processedInput}
+      </div>
+    </div>
+  ` : ''}
+</div>
+` }) %> 
