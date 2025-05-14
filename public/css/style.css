@@ -94,6 +94,26 @@ body {
   margin-bottom: 20px;
 }
 
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.clear-uploads-btn {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.clear-uploads-btn:hover {
+  background-color: #c0392b;
+}
+
 .main {
   background-color: #fff;
   padding: 20px;

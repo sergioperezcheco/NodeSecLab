@@ -135,10 +135,12 @@
     
     <div class="content">
       <div class="header">
-        <h2><%= title %></h2>
-        <% if(activeMenu === 'upload') { %>
-          <button id="clearUploadsBtn" class="clear-uploads-btn">清空上传文件夹</button>
-        <% } %>
+        <div class="header-content">
+          <h2><%= title %></h2>
+          <% if(activeMenu === 'upload') { %>
+            <button id="clearUploadsBtn" class="clear-uploads-btn">清空上传文件夹</button>
+          <% } %>
+        </div>
       </div>
       <div class="main">
         <%- body %>
