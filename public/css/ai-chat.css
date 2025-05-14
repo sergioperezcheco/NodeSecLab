@@ -1,9 +1,9 @@
 .ai-chat-container {
   position: fixed;
-  right: -350px;
+  right: -400px;
   top: 80px;
-  width: 350px;
-  height: 500px;
+  width: 400px;
+  height: 800px;
   background-color: #fff;
   border-radius: 10px 0 0 10px;
   box-shadow: -2px 0 15px rgba(0, 0, 0, 0.1);
@@ -111,8 +111,9 @@
   border-radius: 20px;
   outline: none;
   resize: none;
-  height: 40px;
+  height: 120px;
   font-family: inherit;
+  overflow-y: auto;
 }
 
 .ai-chat-input:focus {
@@ -123,6 +124,7 @@
   width: 40px;
   height: 40px;
   margin-left: 10px;
+  margin-top: 20px;
   background-color: #3498db;
   color: white;
   border: none;
@@ -171,4 +173,78 @@
   40% { 
     transform: scale(1.0);
   }
+}
+
+/* Markdown样式 */
+.ai-message.bot pre {
+  background-color: #2d3748;
+  color: #e2e8f0;
+  padding: 10px;
+  border-radius: 5px;
+  overflow-x: auto;
+  font-family: monospace;
+  font-size: 0.9em;
+  margin: 10px 0;
+}
+
+.ai-message.bot code {
+  background-color: #2d3748;
+  color: #e2e8f0;
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-family: monospace;
+  font-size: 0.9em;
+}
+
+.ai-message.bot p {
+  margin: 8px 0;
+}
+
+.ai-message.bot h1, 
+.ai-message.bot h2, 
+.ai-message.bot h3, 
+.ai-message.bot h4, 
+.ai-message.bot h5, 
+.ai-message.bot h6 {
+  margin-top: 16px;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.ai-message.bot h1 { font-size: 1.4em; }
+.ai-message.bot h2 { font-size: 1.3em; }
+.ai-message.bot h3 { font-size: 1.2em; }
+.ai-message.bot h4 { font-size: 1.1em; }
+.ai-message.bot h5 { font-size: 1em; }
+.ai-message.bot h6 { font-size: 0.9em; }
+
+.ai-message.bot ul, 
+.ai-message.bot ol {
+  margin: 8px 0;
+  padding-left: 20px;
+}
+
+.ai-message.bot blockquote {
+  border-left: 3px solid #3498db;
+  padding-left: 10px;
+  margin: 10px 0;
+  color: #555;
+  font-style: italic;
+}
+
+.ai-message.bot table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 10px 0;
+}
+
+.ai-message.bot th, 
+.ai-message.bot td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.ai-message.bot th {
+  background-color: #f2f2f2;
 } 
