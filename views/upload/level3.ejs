@@ -1,0 +1,61 @@
+<%- include('../layout', { body: `
+<div class="challenge">
+  <div class="challenge-description">
+    <h3>文件上传 - Level 3</h3>
+    <p>这个页面实现了前端JavaScript文件类型验证，只允许上传图片文件。尝试绕过这个限制。</p>
+    <p>提示：客户端验证可以被绕过。</p>
+  </div>
+  
+  ${message ? `<div class="alert ${uploadedFile ? 'alert-success' : 'alert-danger'}">${message}</div>` : ''}
+  
+  <div class="challenge-form">
+    <form method="POST" action="/upload/level3" enctype="multipart/form-data" id="uploadForm">
+      <div class="form-group">
+        <label for="file">选择文件：</label>
+        <input type="file" id="file" name="file" required>
+        <small>只允许上传图片文件（JPG, JPEG, PNG, GIF）</small>
+      </div>
+      <button type="submit" class="btn">上传文件</button>
+      <a href="/source/upload/3" class="btn">查看源码</a>
+    </form>
+  </div>
+  
+  ${uploadedFile ? `
+    <div class="challenge-result">
+      <h4>上传成功</h4>
+      <div class="file-info">
+        <p><strong>文件名：</strong> ${uploadedFile.originalname}</p>
+        <p><strong>文件类型：</strong> ${uploadedFile.mimetype}</p>
+        <p><strong>文件大小：</strong> ${(uploadedFile.size / 1024).toFixed(2)} KB</p>
+        <p><strong>文件路径：</strong> <a href="${uploadedFile.path}" target="_blank">${uploadedFile.path}</a></p>
+      </div>
+    </div>
+  ` : ''}
+  
+  <div class="challenge-hint">
+    <h4>漏洞利用提示</h4>
+    <p>尝试以下方法绕过限制：</p>
+    <ol>
+      <li>使用浏览器开发者工具绕过前端JavaScript验证</li>
+      <li>使用抓包工具（如Burp Suite）拦截并修改请求</li>
+      <li>直接向服务器端点发送请求，完全绕过前端</li>
+    </ol>
+  </div>
+</div>
+
+<script>
+  // 前端JavaScript验证
+  document.getElementById('uploadForm').addEventListener('submit', function(e) {
+    const fileInput = document.getElementById('file');
+    const filePath = fileInput.value;
+    const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+    
+    if (!allowedExtensions.exec(filePath)) {
+      e.preventDefault();
+      alert('错误：请上传JPG、JPEG、PNG或GIF图片文件！');
+      fileInput.value = '';
+      return false;
+    }
+  });
+</script>
+` }) %> 

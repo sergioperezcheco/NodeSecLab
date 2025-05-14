@@ -6,6 +6,10 @@ const fs = require('fs');
 
 const level1Controller = require('../controllers/upload/level1');
 const level2Controller = require('../controllers/upload/level2');
+const level3Controller = require('../controllers/upload/level3');
+const level4Controller = require('../controllers/upload/level4');
+const level5Controller = require('../controllers/upload/level5');
+const level6Controller = require('../controllers/upload/level6');
 
 // 配置文件上传存储
 const storage = multer.diskStorage({
@@ -26,5 +30,21 @@ router.post('/level1', upload.single('file'), level1Controller.uploadFile);
 // 文件上传 Level 2
 router.get('/level2', level2Controller.renderPage);
 router.post('/level2', upload.single('file'), level2Controller.uploadFile);
+
+// 文件上传 Level 3 - 前端JS验证
+router.get('/level3', level3Controller.renderPage);
+router.post('/level3', upload.single('file'), level3Controller.uploadFile);
+
+// 文件上传 Level 4 - 大小写后缀绕过
+router.get('/level4', level4Controller.renderPage);
+router.post('/level4', upload.single('file'), level4Controller.uploadFile);
+
+// 文件上传 Level 5 - 双写后缀绕过
+router.get('/level5', level5Controller.renderPage);
+router.post('/level5', upload.single('file'), level5Controller.uploadFile);
+
+// 文件上传 Level 6 - content-type绕过
+router.get('/level6', level6Controller.renderPage);
+router.post('/level6', upload.single('file'), level6Controller.uploadFile);
 
 module.exports = router; 
