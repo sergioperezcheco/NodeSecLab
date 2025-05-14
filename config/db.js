@@ -17,25 +17,40 @@ let pool = null;
 // 初始化数据库
 async function initDb() {
   try {
+    console.log('正在连接数据库，配置信息:', {
+      host: dbConfig.host,
+      user: dbConfig.user,
+      database: dbConfig.database
+    });
+    
     // 首先创建没有指定数据库的连接
     const tempPool = mysql.createPool({
       host: dbConfig.host,
       user: dbConfig.user,
-      password: dbConfig.password
+      password: dbConfig.password,
+      connectTimeout: 10000, // 增加连接超时时间
+      waitForConnections: true,
+      connectionLimit: 5
     });
 
     // 检查数据库是否存在，如果不存在则创建
-    const [rows] = await tempPool.execute(
-      `SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '${dbConfig.database}'`
-    );
+    try {
+      const [rows] = await tempPool.execute(
+        `SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '${dbConfig.database}'`
+      );
 
-    if (rows.length === 0) {
-      console.log(`创建数据库 ${dbConfig.database}`);
-      await tempPool.execute(`CREATE DATABASE IF NOT EXISTS ${dbConfig.database}`);
+      if (rows.length === 0) {
+        console.log(`创建数据库 ${dbConfig.database}`);
+        await tempPool.execute(`CREATE DATABASE IF NOT EXISTS ${dbConfig.database}`);
+      }
+
+      // 关闭临时连接池
+      await tempPool.end();
+    } catch (err) {
+      console.error('检查/创建数据库失败:', err);
+      if (tempPool) await tempPool.end();
+      throw err;
     }
-
-    // 关闭临时连接池
-    await tempPool.end();
 
     // 创建正式连接池
     pool = mysql.createPool({
@@ -45,9 +60,15 @@ async function initDb() {
       database: dbConfig.database,
       waitForConnections: true,
       connectionLimit: 10,
-      queueLimit: 0
+      queueLimit: 0,
+      connectTimeout: 10000, // 增加连接超时时间
+      debug: process.env.NODE_ENV === 'development' // 开发环境启用调试
     });
 
+    // 测试连接
+    const connection = await pool.getConnection();
+    connection.release();
+    
     // 初始化表
     await initTables();
     

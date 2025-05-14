@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const dotenv = require('dotenv');
 const fs = require('fs');
+const db = require('./config/db'); // 导入数据库模块
 
 // 加载环境变量
 dotenv.config({ path: path.join(__dirname, '.env') });
@@ -70,8 +71,20 @@ app.use((err, req, res, next) => {
 
 // 启动服务器
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`服务器运行在 http://localhost:${PORT}`);
+
+// 先初始化数据库，再启动服务器
+db.initDb().then(success => {
+  if (success) {
+    app.listen(PORT, () => {
+      console.log(`服务器运行在 http://localhost:${PORT}`);
+    });
+  } else {
+    console.error('数据库初始化失败，服务器无法启动');
+    process.exit(1);
+  }
+}).catch(err => {
+  console.error('数据库初始化错误:', err);
+  process.exit(1);
 });
 
 module.exports = app; 
