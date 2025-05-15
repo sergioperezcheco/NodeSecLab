@@ -76,17 +76,20 @@ const PORT = process.env.PORT || 5000;
 
 // 先初始化数据库，再启动服务器
 db.initDb().then(success => {
-  if (success) {
-    app.listen(PORT, () => {
+  // 无论数据库初始化是否成功，都启动服务器
+  app.listen(PORT, () => {
+    if (success) {
       console.log(`服务器运行在 http://localhost:${PORT}`);
-    });
-  } else {
-    console.error('数据库初始化失败，服务器无法启动');
-    process.exit(1);
-  }
+    } else {
+      console.log(`服务器运行在 http://localhost:${PORT}，但数据库连接失败，SQL注入相关功能将不可用`);
+    }
+  });
 }).catch(err => {
   console.error('数据库初始化错误:', err);
-  process.exit(1);
+  // 即使有错误也启动服务器
+  app.listen(PORT, () => {
+    console.log(`服务器运行在 http://localhost:${PORT}，但数据库连接失败，SQL注入相关功能将不可用`);
+  });
 });
 
 module.exports = app; 

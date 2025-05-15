@@ -11,6 +11,7 @@
   z-index: 1000;
   display: flex;
   flex-direction: column;
+  max-height: 80vh;
 }
 
 .ai-chat-container.open {
@@ -58,11 +59,20 @@
   overflow-y: auto;
   padding: 15px;
   background-color: #f8f9fa;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .ai-chat-messages {
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
+  flex: 1;
+  width: 100%;
+  padding-right: 5px;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
 }
 
 .ai-message {

@@ -14,6 +14,9 @@ const dbConfig = {
 // 创建连接池
 let pool = null;
 
+// 添加全局状态标记数据库是否可用
+let isDbAvailable = false;
+
 // 初始化数据库
 async function initDb() {
   try {
@@ -73,9 +76,11 @@ async function initDb() {
     await initTables();
     
     console.log('数据库连接成功');
+    isDbAvailable = true;
     return true;
   } catch (error) {
     console.error('数据库连接失败:', error);
+    isDbAvailable = false;
     return false;
   }
 }
@@ -155,14 +160,17 @@ async function initTables() {
 
 // 获取数据库连接池
 function getPool() {
+  if (!isDbAvailable) {
+    return null;
+  }
   return pool;
 }
 
 // 执行SQL查询
 async function query(sql, params) {
   try {
-    if (!pool) {
-      throw new Error('数据库未连接');
+    if (!isDbAvailable || !pool) {
+      throw new Error('数据库未连接或不可用');
     }
     const [rows] = await pool.execute(sql, params);
     return rows;
@@ -172,9 +180,15 @@ async function query(sql, params) {
   }
 }
 
+// 检查数据库是否可用
+function isDatabaseAvailable() {
+  return isDbAvailable;
+}
+
 module.exports = {
   initDb,
   getPool,
   query,
-  dbConfig
+  dbConfig,
+  isDatabaseAvailable
 }; 

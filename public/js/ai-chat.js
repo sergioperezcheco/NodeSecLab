@@ -14,46 +14,55 @@ document.addEventListener('DOMContentLoaded', function() {
   const chatSend = document.querySelector('.ai-chat-send');
   const chatClose = document.querySelector('.ai-chat-close');
   
+  // 设置欢迎消息的实时时间
+  const welcomeTimeElement = document.getElementById('welcome-message-time');
+  if (welcomeTimeElement) {
+    const now = new Date();
+    welcomeTimeElement.textContent = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+  }
+  
   // 聊天记录
   let chatHistory = [];
   
-  // 用户滚动控制变量
-  let userScrolling = false;
-  let scrollTimeout;
+  // 自动滚动控制
+  let autoScrollInterval = null;
   
-  // 如果消息容器存在，添加滚动监听
-  if (chatMessages) {
-    chatMessages.addEventListener('scroll', function() {
-      userScrolling = true;
-      clearTimeout(scrollTimeout);
-      
-      // 如果用户2秒内不再滚动，则恢复自动滚动
-      scrollTimeout = setTimeout(() => {
-        userScrolling = false;
-      }, 2000);
-    });
-  }
+  // 启动自动滚动（定时持续滚动到底部）
+  const startAutoScroll = () => {
+    // 先清除可能已存在的滚动定时器
+    stopAutoScroll();
+    
+    // 创建新的滚动定时器，每100ms滚动一次
+    autoScrollInterval = setInterval(() => {
+      if (chatMessages) {
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+    }, 100);
+  };
+  
+  // 停止自动滚动
+  const stopAutoScroll = () => {
+    if (autoScrollInterval) {
+      clearInterval(autoScrollInterval);
+      autoScrollInterval = null;
+    }
+  };
   
   // 滚动到底部的函数
   const scrollToBottom = () => {
-    // 使用setTimeout确保在DOM更新后滚动
-    setTimeout(() => {
-      chatMessages.scrollTo({
-        top: chatMessages.scrollHeight,
-        behavior: 'smooth'
+    if (chatMessages) {
+      // 立即滚动一次
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+      
+      // 再次在下一帧滚动，确保在DOM更新后
+      requestAnimationFrame(() => {
+        chatMessages.scrollTop = chatMessages.scrollHeight;
       });
-    }, 10);
+    }
   };
   
-  // 强制滚动到底部(无动画)
-  const forceScrollToBottom = () => {
-    // 如果用户正在滚动，则不强制滚动
-    if (userScrolling) return;
-    
-    requestAnimationFrame(() => {
-      chatMessages.scrollTop = chatMessages.scrollHeight;
-    });
-  };
+  // 强制滚动到底部
+  const forceScrollToBottom = scrollToBottom;
   
   // 切换聊天窗口显示/隐藏
   if (chatToggle) {
@@ -61,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
       chatContainer.classList.toggle('open');
       // 如果窗口被打开，滚动到底部
       if (chatContainer.classList.contains('open')) {
-        scrollToBottom();
+        forceScrollToBottom();
       }
     });
   }
@@ -70,6 +79,8 @@ document.addEventListener('DOMContentLoaded', function() {
   if (chatClose) {
     chatClose.addEventListener('click', function() {
       chatContainer.classList.remove('open');
+      // 关闭窗口时停止自动滚动
+      stopAutoScroll();
     });
   }
   
@@ -83,7 +94,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 清空输入框
     chatInput.value = '';
-    chatInput.style.height = '80px'; // 重置输入框高度
     
     // 更新聊天历史
     chatHistory.push({ role: 'user', content: message });
@@ -92,6 +102,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const botMessageEl = createBotMessageElement();
     
     try {
+      // 启动自动滚动，在流式响应期间持续滚动
+      startAutoScroll();
+      
       // 调用API获取流式响应
       await streamChatResponse(chatHistory, botMessageEl);
       
@@ -100,14 +113,20 @@ document.addEventListener('DOMContentLoaded', function() {
       chatHistory.push({ role: 'assistant', content: generatedContent });
       
       // 确保滚动到底部
-      scrollToBottom();
+      forceScrollToBottom();
+      
+      // 停止自动滚动
+      stopAutoScroll();
     } catch (error) {
       console.error('API 请求错误:', error);
       
       // 显示错误消息
       botMessageEl.innerHTML = marked.parse('抱歉，发生了错误，请稍后再试。');
       addTimeToMessage(botMessageEl);
-      scrollToBottom();
+      forceScrollToBottom();
+      
+      // 停止自动滚动
+      stopAutoScroll();
     }
   };
   
@@ -118,7 +137,7 @@ document.addEventListener('DOMContentLoaded', function() {
     chatMessages.appendChild(messageEl);
     
     // 滚动到底部
-    scrollToBottom();
+    forceScrollToBottom();
     
     return messageEl;
   };
@@ -138,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function() {
     chatMessages.appendChild(messageEl);
     
     // 滚动到底部
-    scrollToBottom();
+    forceScrollToBottom();
   };
   
   // 添加时间戳到消息
@@ -218,16 +237,18 @@ document.addEventListener('DOMContentLoaded', function() {
           }
         }
         
-        // 如果内容更新了，强制滚动到底部
+        // 确保自动滚动处于激活状态
         if (contentUpdated) {
-          forceScrollToBottom();
+          if (!autoScrollInterval) {
+            startAutoScroll();
+          }
         }
       }
       
       // 最终更新，确保所有内容都已渲染
       messageElement.innerHTML = marked.parse(content);
       addTimeToMessage(messageElement);
-      scrollToBottom();
+      forceScrollToBottom();
       return content;
     } catch (error) {
       console.error('API流式调用错误:', error);
@@ -238,10 +259,8 @@ document.addEventListener('DOMContentLoaded', function() {
   // 自动调整输入框高度
   if (chatInput) {
     chatInput.addEventListener('input', function() {
-      // 先将高度重置为默认值，以便正确计算内容高度
-      this.style.height = '80px';
-      // 然后根据内容调整高度，但不超过200px
-      this.style.height = Math.min(this.scrollHeight, 200) + 'px';
+      // 不再需要根据输入内容调整高度
+      // 输入框高度保持固定
     });
   }
   
@@ -265,6 +284,7 @@ document.addEventListener('DOMContentLoaded', function() {
     for (const mutation of mutations) {
       if (mutation.type === 'childList' || 
           (mutation.type === 'characterData' && mutation.target.nodeType === Node.TEXT_NODE)) {
+        // 滚动到底部
         forceScrollToBottom();
         return;
       }
