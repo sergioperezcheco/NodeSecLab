@@ -130,6 +130,8 @@ body {
   cursor: pointer;
   transition: background-color 0.3s;
   box-shadow: 0 2px 5px rgba(231, 76, 60, 0.3);
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 .clear-uploads-btn:hover {
@@ -388,7 +390,7 @@ body {
   display: inline-block;
   background-color: #3498db;
   color: white;
-  padding: 10px 20px;
+  padding: 10px 15px;
   border-radius: 4px;
   text-decoration: none;
   margin-right: 10px;
@@ -397,12 +399,81 @@ body {
   border: none;
   cursor: pointer;
   font-weight: 500;
+  font-size: 14px;
+  line-height: 1.5;
+  height: auto;
+  width: auto;
+  text-align: center;
+  min-width: 80px;
 }
 
 .btn:hover {
   background-color: #2980b9;
   transform: translateY(-2px);
   box-shadow: 0 6px 8px rgba(52, 152, 219, 0.4);
+}
+
+.btn-primary {
+  background-color: #3498db;
+  box-shadow: 0 4px 6px rgba(52, 152, 219, 0.3);
+}
+
+.btn-primary:hover {
+  background-color: #2980b9;
+  box-shadow: 0 6px 8px rgba(52, 152, 219, 0.4);
+}
+
+.btn-danger {
+  background-color: #e74c3c;
+  box-shadow: 0 4px 6px rgba(231, 76, 60, 0.3);
+}
+
+.btn-danger:hover {
+  background-color: #c0392b;
+  box-shadow: 0 6px 8px rgba(231, 76, 60, 0.4);
+}
+
+/* 辅助类，不影响按钮大小，只调整边距 */
+.mt-2 {
+  margin-top: 0.5rem !important;
+}
+
+.mt-3 {
+  margin-top: 1rem !important;
+}
+
+.mt-4 {
+  margin-top: 1.5rem !important;
+}
+
+/* 选项卡按钮样式，与其他按钮保持一致 */
+.tab-btn {
+  display: inline-block;
+  background-color: #f1f1f1;
+  color: #333;
+  padding: 10px 15px;
+  border-radius: 4px 4px 0 0;
+  text-decoration: none;
+  margin-right: 5px;
+  transition: all 0.3s;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: center;
+  min-width: 80px;
+  border-bottom: 2px solid transparent;
+}
+
+.tab-btn:hover {
+  background-color: #e6e6e6;
+}
+
+.tab-btn.active {
+  background-color: #fff;
+  border-bottom: 2px solid #3498db;
+  color: #3498db;
 }
 
 .source-code {
@@ -428,6 +499,17 @@ pre {
 
 .form-group {
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group:last-child {
+  margin-bottom: 0;
+}
+
+.form-group .btn,
+.form-group button {
+  align-self: flex-start;
 }
 
 label {
