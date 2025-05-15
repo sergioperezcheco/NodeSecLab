@@ -297,7 +297,7 @@ body {
 }
 
 .welcome ul.feature-list li p:before {
-  content: '→';
+  content: '';
   position: absolute;
   left: -15px;
   color: #3498db;
