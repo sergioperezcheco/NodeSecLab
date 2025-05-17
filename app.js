@@ -15,7 +15,6 @@ const xssRouter = require('./routes/xss');
 const csrfRouter = require('./routes/csrf');
 const uploadRouter = require('./routes/upload');
 const downloadRouter = require('./routes/download');
-// 导入新增路由
 const commandRouter = require('./routes/command');
 const includeRouter = require('./routes/include');
 const xmlRouter = require('./routes/xml');
@@ -48,7 +47,6 @@ app.use('/xss', xssRouter);
 app.use('/csrf', csrfRouter);
 app.use('/upload', uploadRouter);
 app.use('/download', downloadRouter);
-// 使用新增路由
 app.use('/command', commandRouter);
 app.use('/include', includeRouter);
 app.use('/xml', xmlRouter);
