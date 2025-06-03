@@ -1,9 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
-  // 配置信息
-  const apiConfig = {
-    baseUrl: 'https://apikey.checo.icu',
-    apiKey: 'sk-yEvkHFrn45wWTGhMHGiXkF7Hh1b8FMPn6bWauzSNuz4nkiBa',
-    model: 'gpt-4o'
+  // 配置信息 - 将从API动态获取
+  let apiConfig = {
+    baseUrl: '',
+    apiKey: '',
+    model: 'gpt-4o',
+    enabled: false
   };
   
   // 获取DOM元素
@@ -13,6 +14,43 @@ document.addEventListener('DOMContentLoaded', function() {
   const chatInput = document.querySelector('.ai-chat-input');
   const chatSend = document.querySelector('.ai-chat-send');
   const chatClose = document.querySelector('.ai-chat-close');
+  
+  // 异步初始化AI配置
+  const initAIConfig = async () => {
+    try {
+      const response = await fetch('/api/ai-config');
+      const config = await response.json();
+      
+      if (config.enabled) {
+        apiConfig = {
+          baseUrl: config.baseUrl,
+          apiKey: config.apiKey,
+          model: config.model,
+          enabled: config.enabled
+        };
+        
+        // 显示AI助手按钮
+        if (chatToggle) {
+          chatToggle.style.display = 'block';
+        }
+      } else {
+        // 隐藏AI助手按钮
+        if (chatToggle) {
+          chatToggle.style.display = 'none';
+        }
+        console.log('AI助手已禁用');
+      }
+    } catch (error) {
+      console.error('获取AI配置失败:', error);
+      // 隐藏AI助手按钮
+      if (chatToggle) {
+        chatToggle.style.display = 'none';
+      }
+    }
+  };
+  
+  // 初始化AI配置
+  initAIConfig();
   
   // 设置欢迎消息的实时时间
   const welcomeTimeElement = document.getElementById('welcome-message-time');
@@ -88,6 +126,12 @@ document.addEventListener('DOMContentLoaded', function() {
   const sendMessage = async () => {
     const message = chatInput.value.trim();
     if (!message) return;
+    
+    // 检查AI助手是否启用和配置是否完整
+    if (!apiConfig.enabled || !apiConfig.baseUrl || !apiConfig.apiKey) {
+      console.error('AI助手配置不完整或已禁用');
+      return;
+    }
     
     // 添加用户消息到聊天界面
     addMessageToChat('user', message);

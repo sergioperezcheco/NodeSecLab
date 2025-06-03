@@ -18,8 +18,6 @@ README.md
 Dockerfile
 docker-compose.yml
 .dockerignore
-需求.md
-新增需求.md
 
 # 临时文件
 *.log

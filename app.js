@@ -21,6 +21,7 @@ const xmlRouter = require('./routes/xml');
 const logicRouter = require('./routes/logic');
 const middlewareRouter = require('./routes/middleware');
 const sourceRouter = require('./routes/source');
+const apiRouter = require('./routes/api');
 
 // 创建Express应用
 const app = express();
@@ -53,6 +54,7 @@ app.use('/xml', xmlRouter);
 app.use('/logic', logicRouter);
 app.use('/middleware', middlewareRouter);
 app.use('/source', sourceRouter);
+app.use('/api', apiRouter);
 
 // 错误处理
 app.use((req, res, next) => {
