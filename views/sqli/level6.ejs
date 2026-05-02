@@ -47,12 +47,8 @@
   </div>
   
   <div class="challenge-result">
-    <% if (typeof error !== 'undefined' && error) { %>
-      <div class="error-message"><%= error %></div>
-    <% } %>
-    <% if (typeof message !== 'undefined' && message) { %>
-      <div class="success-message"><%= message %></div>
-    <% } %>
+    ${typeof error !== 'undefined' && error ? '<div class="error-message">' + error + '</div>' : ''}
+    ${typeof message !== 'undefined' && message ? '<div class="success-message">' + message + '</div>' : ''}
   </div>
 </div>
 

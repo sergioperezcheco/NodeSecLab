@@ -1,5 +1,5 @@
 # 使用Alpine Linux作为基础镜像
-FROM node:18-alpine
+FROM node:22-alpine
 
 # 设置工作目录
 WORKDIR /app
@@ -11,9 +11,9 @@ ENV NODE_ENV=production
 COPY package*.json ./
 
 # 安装依赖
-# 安装必要的编译工具，用于编译本地模块如libxmljs
+# 安装必要的编译工具，用于编译本地模块如libxmljs2
 RUN apk add --no-cache python3 make g++ && \
-    npm ci --only=production && \
+    npm ci --omit=dev && \
     apk del python3 make g++
 
 # 复制应用代码

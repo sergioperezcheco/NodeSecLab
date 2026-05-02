@@ -44,7 +44,7 @@ async function initDb() {
 
       if (rows.length === 0) {
         console.log(`创建数据库 ${dbConfig.database}`);
-        await tempPool.execute(`CREATE DATABASE IF NOT EXISTS ${dbConfig.database}`);
+        await tempPool.execute(`CREATE DATABASE IF NOT EXISTS \`${dbConfig.database}\``);
       }
 
       // 关闭临时连接池

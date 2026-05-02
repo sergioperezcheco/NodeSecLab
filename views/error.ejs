@@ -1,8 +1,8 @@
 <%- include('layout', { body: `
 <div class="error-page">
   <h2>错误</h2>
-  <p><%= message %></p>
-  <p><%= error.status %></p>
-  <pre><%= error.stack %></pre>
+  <p>${message || '未知错误'}</p>
+  <p>${error && error.status ? error.status : ''}</p>
+  <pre>${error && error.stack ? error.stack : ''}</pre>
 </div>
-` }) %> 
+` }) %>

@@ -8,20 +8,21 @@ services:
     container_name: web-security-lab
     restart: unless-stopped
     ports:
-      - "5001:5001"
+      - "3000:3000"
     environment:
-      - PORT=5001
+      - PORT=3000
       - DB_HOST=db
       - DB_USER=securitylab
       - DB_PASSWORD=securitylabpass
       - DB_NAME=web
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     networks:
       - app-network
 
   db:
-    image: mysql:5.7
+    image: mysql:8.0
     container_name: web-security-lab-db
     restart: unless-stopped
     environment:
@@ -33,6 +34,11 @@ services:
       - db-data:/var/lib/mysql
     networks:
       - app-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 networks:
   app-network:
@@ -40,4 +46,4 @@ networks:
 
 volumes:
   db-data:
-    driver: local 
+    driver: local

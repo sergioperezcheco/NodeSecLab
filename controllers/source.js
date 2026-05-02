@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-// 命令执行命令
+// 命令执行
 const commandSources = {
   1: '/controllers/command/level1.js',
   2: '/controllers/command/level2.js',
@@ -37,25 +37,39 @@ const middlewareSources = {
 // SQL注入
 const sqliSources = {
   1: '/controllers/sqli/level1.js',
-  2: '/controllers/sqli/level2.js'
+  2: '/controllers/sqli/level2.js',
+  3: '/controllers/sqli/level3.js',
+  4: '/controllers/sqli/level4.js',
+  5: '/controllers/sqli/level5.js',
+  6: '/controllers/sqli/level6.js',
+  7: '/controllers/sqli/level7.js'
 };
 
 // XSS
 const xssSources = {
   1: '/controllers/xss/level1.js',
-  2: '/controllers/xss/level2.js'
+  2: '/controllers/xss/level2.js',
+  3: '/controllers/xss/level3.js',
+  4: '/controllers/xss/level4.js',
+  5: '/controllers/xss/level5.js',
+  6: '/controllers/xss/level6.js'
 };
 
 // CSRF
 const csrfSources = {
   1: '/controllers/csrf/level1.js',
-  2: '/controllers/csrf/level2.js'
+  2: '/controllers/csrf/level2.js',
+  3: '/controllers/csrf/level3.js'
 };
 
 // 文件上传
 const uploadSources = {
   1: '/controllers/upload/level1.js',
-  2: '/controllers/upload/level2.js'
+  2: '/controllers/upload/level2.js',
+  3: '/controllers/upload/level3.js',
+  4: '/controllers/upload/level4.js',
+  5: '/controllers/upload/level5.js',
+  6: '/controllers/upload/level6.js'
 };
 
 // 文件下载
@@ -123,9 +137,10 @@ exports.getSource = (req, res) => {
     res.render('source', {
       title: `${category.toUpperCase()} - Level ${level} 源码`,
       activeMenu: category,
-      source,
+      sourceCode: source,
       category,
-      level
+      level,
+      type: category
     });
   } catch (error) {
     console.error('读取源码失败:', error);

@@ -1,4 +1,3 @@
-const libxml = require('libxmljs');
 const xpath = require('xpath');
 const dom = require('xmldom').DOMParser;
 

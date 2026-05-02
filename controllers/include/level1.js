@@ -26,7 +26,7 @@ exports.includeFile = (req, res) => {
     }
     
     // 不安全的文件读取操作
-    const content = fs.readFileSync(path.resolve(file), 'utf8');
+    const content = fs.readFileSync(path.join(includeDir, file), 'utf8');
     
     res.render('include/level1', {
       title: '文件包含 - Level 1',

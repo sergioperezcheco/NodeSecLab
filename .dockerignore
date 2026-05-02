@@ -18,6 +18,7 @@ README.md
 Dockerfile
 docker-compose.yml
 .dockerignore
+.claude
 
 # 临时文件
 *.log

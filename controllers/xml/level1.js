@@ -1,5 +1,3 @@
-const libxml = require('libxmljs');
-
 // 渲染XML注入Level 1页面
 exports.renderPage = (req, res) => {
   res.render('xml/level1', {
@@ -16,10 +14,12 @@ exports.processXml = (req, res) => {
   let result = null;
   
   try {
+    const libxml = require('libxmljs2');
     // 不安全的XML解析，允许外部实体注入
     const xmlDoc = libxml.parseXml(xml, {
       replaceEntities: true, // 允许解析外部实体
-      dtdload: true // 允许加载外部DTD
+      dtdload: true, // 允许加载外部DTD
+      noent: true // 替换实体引用
     });
     
     // 提取XML中的数据
